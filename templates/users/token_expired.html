@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Token Expired</div>
+                <div class="card-body">
+                    <h4>Verification Link Expired</h4>
+                    <p>Your verification link has expired or is invalid.</p>
+                    
+                    {% if email %}
+                    <p>Would you like to receive a new verification link for {{ email }}?</p>
+                    <a href="{% url 'resend_verification' %}?email={{ email }}" class="btn btn-primary">Resend Verification Email</a>
+                    {% else %}
+                    <p>Please request a new verification link:</p>
+                    <a href="{% url 'resend_verification' %}" class="btn btn-primary">Request New Verification Email</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

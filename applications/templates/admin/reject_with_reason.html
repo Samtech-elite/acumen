@@ -1,0 +1,30 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+<div class="module aligned">
+    <h2>{% trans "Reject Selected Applications" %}</h2>
+    <p>{% trans "You are about to reject the following applications:" %}</p>
+    <ul>
+        {% for app in apps %}
+            <li>{{ app.applicant.user.email }} ({{ app.applicant.user.get_full_name|default:app.applicant.user.username }})</li>
+        {% endfor %}
+    </ul>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        {% for app_id in request.POST.getlist %}
+            <input type="hidden" name="{{ action_checkbox_name }}" value="{{ app_id }}">
+        {% endfor %}
+        
+        <div class="submit-row">
+            <input type="hidden" name="action" value="reject_applications_with_reason">
+            <input type="submit" name="confirm" value="{% trans 'Confirm Rejection' %}" class="default">
+            <a href="{% url 'admin:applications_application_changelist' %}" class="button cancel-link">{% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+asgiref==3.8.1
+django-countries==7.6.1
+typing_extensions==4.13.2
+asgiref==3.8.1
+Django==5.2.1
+django-countries==7.6.1
+packaging==25.0
+pillow==11.2.1
+pytesseract==0.3.13
+sqlparse==0.5.3
+typing_extensions==4.13.2
+tzdata==2025.2
+whitenoise==6.9.0

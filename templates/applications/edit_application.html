@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Back button -->
+        <div class="mb-6">
+            <a href="{% url 'application_details' application.id %}" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors duration-300 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Application
+            </a>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+            <!-- Form Header -->
+            <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 px-6 py-5 border-b border-indigo-700">
+                <h2 class="text-xl font-semibold text-white flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Edit Your Application
+                </h2>
+                <p class="text-indigo-100 mt-1">Update your application details below</p>
+            </div>
+
+            <!-- Form -->
+            <div class="p-6 md:p-8">
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-md" role="alert">
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            <span>{{ form.non_field_errors }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Cover Letter -->
+                    <div class="bg-white border border-gray-300 rounded-lg p-5 hover:border-indigo-400 transition-colors duration-200">
+                        <label for="{{ form.cover_letter.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Cover Letter
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="{{ form.cover_letter.id_for_label }}" name="{{ form.cover_letter.html_name }}" rows="6" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-3" placeholder="Introduce yourself and explain why you're a good fit for this position...">{{ form.cover_letter.value|default:'' }}</textarea>
+                        </div>
+                        {% if form.cover_letter.errors %}
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.cover_letter.errors.0 }}
+                        </p>
+                        {% endif %}
+                        <p class="mt-2 text-xs text-gray-500">Write a compelling cover letter that highlights your skills and experience.</p>
+                    </div>
+                    
+                    <!-- How did you hear about us -->
+                    <div class="bg-white border border-gray-300 rounded-lg p-5 hover:border-indigo-400 transition-colors duration-200">
+                        <label for="{{ form.heard_about.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            How did you hear about us?
+                        </label>
+                        <div class="mt-1">
+                            <select id="{{ form.heard_about.id_for_label }}" name="{{ form.heard_about.html_name }}" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-3">
+                                <option value="" {% if not form.heard_about.value %}selected{% endif %}>Please select an option</option>
+                                <option value="social_media" {% if form.heard_about.value == 'social_media' %}selected{% endif %}>Social Media</option>
+                                <option value="friend" {% if form.heard_about.value == 'friend' %}selected{% endif %}>Friend or Colleague</option>
+                                <option value="job_board" {% if form.heard_about.value == 'job_board' %}selected{% endif %}>Job Board</option>
+                                <option value="search" {% if form.heard_about.value == 'search' %}selected{% endif %}>Search Engine</option>
+                                <option value="other" {% if form.heard_about.value == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        {% if form.heard_about.errors %}
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.heard_about.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Resume -->
+                    <div class="bg-white border border-gray-300 rounded-lg p-5 hover:border-indigo-400 transition-colors duration-200">
+                        <label for="{{ form.resume.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Resume
+                        </label>
+                        <div class="mt-1 flex items-center">
+                            <label for="{{ form.resume.id_for_label }}" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none">
+                                <div class="py-2 px-4 border border-gray-300 border-dashed rounded-md text-center hover:bg-gray-50 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600 mt-2 justify-center">
+                                        <span>Upload a file</span>
+                                        <input id="{{ form.resume.id_for_label }}" name="{{ form.resume.html_name }}" type="file" class="sr-only">
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">PDF, DOC, or DOCX up to 10MB</p>
+                                </div>
+                            </label>
+                        </div>
+                        {% if application.resume %}
+                        <div class="mt-3 flex items-center bg-indigo-50 p-3 rounded-md border border-indigo-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="text-sm text-gray-700">Current file:</span>
+                            <a href="{{ application.resume.url }}" class="text-indigo-600 hover:underline ml-1 text-sm" target="_blank">{{ application.resume.name|slice:"12:" }}</a>
+                        </div>
+                        {% endif %}
+                        {% if form.resume.errors %}
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.resume.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Writing Sample -->
+                    <div class="bg-white border border-gray-300 rounded-lg p-5 hover:border-indigo-400 transition-colors duration-200">
+                        <label for="{{ form.writing_sample.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Writing Sample
+                        </label>
+                        <div class="mt-1 flex items-center">
+                            <label for="{{ form.writing_sample.id_for_label }}" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none w-full">
+                                <div class="py-2 px-4 border border-gray-300 border-dashed rounded-md text-center hover:bg-gray-50 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600 mt-2 justify-center">
+                                        <span>Upload a writing sample</span>
+                                        <input id="{{ form.writing_sample.id_for_label }}" name="{{ form.writing_sample.html_name }}" type="file" class="sr-only">
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">PDF, DOC, DOCX, or TXT up to 10MB</p>
+                                </div>
+                            </label>
+                        </div>
+                        {% if application.writing_sample %}
+                        <div class="mt-3 flex items-center bg-indigo-50 p-3 rounded-md border border-indigo-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="text-sm text-gray-700">Current file:</span>
+                            <a href="{{ application.writing_sample.url }}" class="text-indigo-600 hover:underline ml-1 text-sm" target="_blank">{{ application.writing_sample.name|slice:"12:" }}</a>
+                        </div>
+                        {% endif %}
+                        {% if form.writing_sample.errors %}
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.writing_sample.errors.0 }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="flex justify-end pt-6 border-t border-gray-200 mt-8">
+                        <button type="button" onclick="window.location.href='{% url 'application_details' application.id %}'" class="mr-4 px-5 py-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-5 py-2.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Update Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Help Section -->
+        <div class="mt-8 bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+            <div class="bg-indigo-50 px-6 py-4 border-b border-indigo-100">
+                <h3 class="text-lg font-medium text-indigo-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Tips for a Strong Application
+                </h3>
+            </div>
+            <div class="p-6">
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Tailor your cover letter to highlight relevant experience and skills</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Ensure your resume is up-to-date and formatted professionally</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Choose a writing sample that demonstrates your best work</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Proofread all materials carefully before submitting</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

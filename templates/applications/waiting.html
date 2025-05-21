@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.5s ease forwards;
+        }
+
+        @keyframes slide-out {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .animate-slide-out {
+            animation: slide-out 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-lg p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        <!-- Status Header -->
+        <div class="flex items-center justify-center gap-2 text-primary-600 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <h1 class="text-xl font-semibold">Application Under Review</h1>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="flex justify-center my-8">
+            <div class="h-20 w-20 border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin"></div>
+        </div>
+
+        <!-- Message -->
+        <p class="text-gray-700 text-center mb-8 leading-relaxed">
+            Your application is currently being reviewed by our team. You will receive the results within 24 hours through
+            email. We appreciate your patience during this process.
+        </p>
+
+        <!-- Timeline -->
+        <div class="bg-gray-50 rounded-xl p-4 mb-8">
+            <h2 class="text-sm font-medium text-gray-700 uppercase tracking-wider mb-4">Application Progress</h2>
+
+            <div class="space-y-6">
+                <!-- Completed Step -->
+                <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-500">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-900">Application Received</p>
+                        <p class="text-xs text-gray-500">Your application has been successfully submitted</p>
+                    </div>
+                </div>
+
+                <!-- Current Step -->
+                <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0">
+                        <div class="h-6 w-6 rounded-full border-2 border-primary-600 border-t-transparent animate-spin"></div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-primary-600">Under Review</p>
+                        <p class="text-xs text-gray-500">Our team is currently reviewing your application</p>
+                    </div>
+                </div>
+
+                <!-- Upcoming Step -->
+                <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0">
+                        <div class="h-6 w-6 rounded-full border-2 border-gray-300"></div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Decision Pending</p>
+                        <p class="text-xs text-gray-500">Final decision will be made soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estimated Time -->
+        <div class="bg-blue-50 rounded-lg p-4 mb-8 flex items-start gap-3">
+            <div class="flex-shrink-0 mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-blue-500">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-blue-800">Estimated Time</h3>
+                <p class="text-sm text-blue-600">
+                    Reviews typically take 12-24 hours to complete. You'll be notified as soon as a decision is made.
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+            <a href="/" class="inline-flex justify-center items-center px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Back to Home
+            </a>
+            <a href="/services" class="inline-flex justify-center items-center px-4 py-3 bg-primary-600 rounded-lg text-white font-medium shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                View Services
+            </a>
+        </div>
+    </div>
+
+    <!-- Notification Toast with Auto-Hide -->
+    <div id="notification" class="fixed bottom-4 right-4 max-w-xs bg-primary-600 text-white rounded-lg shadow-lg p-4 flex items-start gap-3 animate-slide-in">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 flex-shrink-0 mt-0.5">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <div>
+            <p class="font-medium text-sm">Email Notification</p>
+            <p class="text-xs text-primary-100">We'll notify you via email when the review is complete</p>
+        </div>
+        <!-- Close Button -->
+        <button onclick="hideNotification()" class="ml-auto -mr-1 -mt-1 text-white opacity-70 hover:opacity-100 transition-opacity duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span class="sr-only">Close</span>
+        </button>
+    </div>
+
+    <!-- Countdown Indicator (Optional) -->
+    <div id="countdown-container" class="fixed bottom-4 right-4 w-[calc(100%-2rem)] max-w-xs h-1 bg-white bg-opacity-20 rounded-b-lg transform translate-y-[calc(100%+1rem)] overflow-hidden">
+        <div id="countdown" class="h-full bg-white bg-opacity-40 w-full"></div>
+    </div>
+
+    <script>
+        // Get the notification element
+        const notification = document.getElementById('notification');
+        const countdown = document.getElementById('countdown');
+        const countdownContainer = document.getElementById('countdown-container');
+        
+        // Function to hide the notification
+        function hideNotification() {
+            notification.classList.remove('animate-slide-in');
+            notification.classList.add('animate-slide-out');
+            countdownContainer.style.display = 'none';
+            
+            // Remove the element from the DOM after animation completes
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }
+        
+        // Auto-hide after 10 seconds
+        let timeLeft = 10;
+        const duration = 10; // seconds
+        
+        // Start the countdown animation
+        countdown.style.transition = `width ${duration}s linear`;
+        
+        // Trigger reflow to make sure the transition works
+        void countdown.offsetWidth;
+        
+        // Start the countdown animation
+        countdown.style.width = '0%';
+        
+        // Set timeout to hide notification after 10 seconds
+        const timer = setTimeout(hideNotification, duration * 1000);
+        
+        // Position the countdown bar correctly
+        setTimeout(() => {
+            const notificationRect = notification.getBoundingClientRect();
+            countdownContainer.style.width = `${notificationRect.width}px`;
+            countdownContainer.style.transform = `translateY(${-4}px)`;
+        }, 100);
+    </script>
+</body>
+</html>

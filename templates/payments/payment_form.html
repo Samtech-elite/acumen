@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Payment Confirmation</h2>
+
+  <div class="alert alert-info">
+    <p>Please select your payment method and provide the required details.</p>
+    <p>Upload a clear screenshot of your payment confirmation to expedite verification.</p>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" id="payment-form">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="id_method" class="form-label">Payment Method</label>
+      {{ payment_form.method }}
+      {% if payment_form.method.errors %}
+        <div class="text-danger">{{ payment_form.method.errors }}</div>
+      {% endif %}
+    </div>
+
+    <!-- PayPal Details Form -->
+    <div id="paypal-details" class="payment-details-form mb-4">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5>PayPal Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="{{ details_form.email.id_for_label }}" class="form-label">PayPal Email</label>
+            {{ details_form.email }}
+            {% if details_form.email.errors %}
+              <div class="text-danger">{{ details_form.email.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.transaction_id.id_for_label }}" class="form-label">Transaction ID (Optional)</label>
+            {{ details_form.transaction_id }}
+            {% if details_form.transaction_id.errors %}
+              <div class="text-danger">{{ details_form.transaction_id.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M-Pesa Details Form -->
+    <div id="mpesa-details" class="payment-details-form mb-4">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5>M-Pesa Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="{{ details_form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
+            {{ details_form.phone_number }}
+            {% if details_form.phone_number.errors %}
+              <div class="text-danger">{{ details_form.phone_number.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.mpesa_code.id_for_label }}" class="form-label">M-Pesa Confirmation Code</label>
+            {{ details_form.mpesa_code }}
+            {% if details_form.mpesa_code.errors %}
+              <div class="text-danger">{{ details_form.mpesa_code.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bank Transfer Details Form -->
+    <div id="bank_transfer-details" class="payment-details-form mb-4">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5>Bank Transfer Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="{{ details_form.account_name.id_for_label }}" class="form-label">Account Name</label>
+            {{ details_form.account_name }}
+            {% if details_form.account_name.errors %}
+              <div class="text-danger">{{ details_form.account_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.bank_name.id_for_label }}" class="form-label">Bank Name</label>
+            {{ details_form.bank_name }}
+            {% if details_form.bank_name.errors %}
+              <div class="text-danger">{{ details_form.bank_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.reference_number.id_for_label }}" class="form-label">Reference Number</label>
+            {{ details_form.reference_number }}
+            {% if details_form.reference_number.errors %}
+              <div class="text-danger">{{ details_form.reference_number.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Payment Details Form -->
+    <div id="card-details" class="payment-details-form mb-4">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5>Card Payment Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="{{ details_form.card_type.id_for_label }}" class="form-label">Card Type</label>
+            {{ details_form.card_type }}
+            {% if details_form.card_type.errors %}
+              <div class="text-danger">{{ details_form.card_type.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.last_four.id_for_label }}" class="form-label">Last 4 Digits</label>
+            {{ details_form.last_four }}
+            {% if details_form.last_four.errors %}
+              <div class="text-danger">{{ details_form.last_four.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.cardholder_name.id_for_label }}" class="form-label">Cardholder Name</label>
+            {{ details_form.cardholder_name }}
+            {% if details_form.cardholder_name.errors %}
+              <div class="text-danger">{{ details_form.cardholder_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ details_form.transaction_id.id_for_label }}" class="form-label">Transaction ID (Optional)</label>
+            {{ details_form.transaction_id }}
+            {% if details_form.transaction_id.errors %}
+              <div class="text-danger">{{ details_form.transaction_id.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Proof (Common for all) -->
+    <div class="mb-4">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h5>Payment Confirmation</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="{{ payment_form.confirmation_proof.id_for_label }}" class="form-label">Upload Confirmation Screenshot</label>
+            {{ payment_form.confirmation_proof }}
+            {% if payment_form.confirmation_proof.errors %}
+              <div class="text-danger">{{ payment_form.confirmation_proof.errors }}</div>
+            {% endif %}
+            <small class="form-text text-muted">Please upload a clear image of your payment confirmation.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Payment Information</button>
+  </form>
+
+  <hr>
+  <p class="mt-4 small text-muted">
+    Your payment will be verified within 24-48 hours. You'll receive an email notification once confirmed.
+  </p>
+</div>
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide all detail forms initially
+    document.querySelectorAll('.payment-details-form').forEach(function(form) {
+      form.style.display = 'none';
+    });
+
+    // Get the currently selected payment method and show its form
+    function showSelectedPaymentDetails() {
+      const selectedMethod = document.querySelector('input[name="method"]:checked')?.value || 
+                             document.querySelector('select[name="method"]')?.value;
+      
+      if (selectedMethod) {
+        // Hide all detail forms
+        document.querySelectorAll('.payment-details-form').forEach(function(form) {
+          form.style.display = 'none';
+        });
+        
+        // Show the selected one
+        const detailsForm = document.getElementById(selectedMethod + '-details');
+        if (detailsForm) {
+          detailsForm.style.display = 'block';
+        }
+      }
+    }
+
+    // Show details based on initial selection
+    showSelectedPaymentDetails();
+
+    // Listen for changes to the payment method
+    document.querySelectorAll('input[name="method"]').forEach(function(radio) {
+      radio.addEventListener('change', showSelectedPaymentDetails);
+    });
+
+    // For select elements
+    const methodSelect = document.querySelector('select[name="method"]');
+    if (methodSelect) {
+      methodSelect.addEventListener('change', showSelectedPaymentDetails);
+    }
+  });
+</script>
+{% endblock %}
+
+{% endblock %}

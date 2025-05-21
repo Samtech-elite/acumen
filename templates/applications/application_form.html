@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+        <!-- Header with progress indicator -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Submit Your Application
+            </h1>
+            <p class="mt-3 text-lg text-gray-500">
+                Join our team of talented writers and start your journey with Acumen Ink
+            </p>
+            
+            <!-- Progress Steps -->
+            <div class="mt-8 flex justify-center">
+                <ol class="flex items-center w-full max-w-md">
+                    <li class="flex items-center text-primary-600 dark:text-primary-500 space-x-2.5">
+                        <span class="flex items-center justify-center w-8 h-8 border-2 border-primary-600 rounded-full shrink-0 dark:border-primary-500">
+                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-primary-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                            </svg>
+                        </span>
+                        <span class="hidden sm:inline-flex">Register</span>
+                    </li>
+                    <div class="flex items-center w-full">
+                        <div class="h-0.5 w-full bg-primary-600 dark:bg-primary-500"></div>
+                    </div>
+                    <li class="flex items-center text-primary-600 dark:text-primary-500 space-x-2.5">
+                        <span class="flex items-center justify-center w-8 h-8 border-2 border-primary-600 rounded-full shrink-0 dark:border-primary-500">
+                            <span class="text-primary-600 dark:text-primary-500">2</span>
+                        </span>
+                        <span class="hidden sm:inline-flex">Application</span>
+                    </li>
+                    <div class="flex items-center w-full">
+                        <div class="h-0.5 w-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+                    <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5">
+                        <span class="flex items-center justify-center w-8 h-8 border-2 border-gray-300 rounded-full shrink-0 dark:border-gray-400">
+                            <span>3</span>
+                        </span>
+                        <span class="hidden sm:inline-flex">Interview</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Application Form Card -->
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
+            <!-- Card Header -->
+            <div class="bg-gradient-to-r from-primary-700 to-primary-900 px-6 py-4">
+                <h2 class="text-xl font-semibold text-white flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Writer Application Form
+                </h2>
+            </div>
+            
+            <!-- Form Content -->
+            <div class="p-6 sm:p-8">
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Resume Upload -->
+                    <div>
+                        <label for="{{ form.resume.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            Resume/CV
+                        </label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-500 transition-colors duration-300 group">
+                            <div class="space-y-1 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400 group-hover:text-primary-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="{{ form.resume.id_for_label }}" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none">
+                                        <span class="group-hover:underline">Upload your resume</span>
+                                        {{ form.resume }}
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    PDF, DOC, or DOCX up to 10MB
+                                </p>
+                                {% if form.resume.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.resume.errors }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Writing Sample Upload -->
+                    <div>
+                        <label for="{{ form.writing_sample.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            Writing Sample
+                        </label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-500 transition-colors duration-300 group">
+                            <div class="space-y-1 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400 group-hover:text-primary-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="{{ form.writing_sample.id_for_label }}" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none">
+                                        <span class="group-hover:underline">Upload your writing sample</span>
+                                        {{ form.writing_sample }}
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    PDF, DOC, DOCX, or TXT up to 10MB
+                                </p>
+                                {% if form.writing_sample.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ form.writing_sample.errors }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cover Letter -->
+                    <div>
+                        <label for="{{ form.cover_letter.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            Cover Letter
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            {{ form.cover_letter|add_class:"pl-10 focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md transition-all duration-300" }}
+                            {% if form.cover_letter.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.cover_letter.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Tell us why you want to join our team and what makes you a great writer.
+                        </p>
+                    </div>
+                    
+                    <!-- How Did You Hear About Us -->
+                    <div>
+                        <label for="{{ form.heard_about.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                            How did you hear about us?
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            {{ form.heard_about|add_class:"pl-10 focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md transition-all duration-300" }}
+                            {% if form.heard_about.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.heard_about.errors }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transform transition-all duration-300 hover:scale-105">
+                            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 group-hover:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                            Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Card Footer -->
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                <div class="flex items-center text-sm text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>
+                        Your application will be reviewed within 2-3 business days. We'll contact you via email with next steps.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Information -->
+        <div class="mt-8 bg-white shadow rounded-lg overflow-hidden">
+            <div class="px-6 py-4">
+                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Application Tips
+                </h3>
+                <ul class="mt-2 text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Include your best writing samples that showcase your versatility and skills.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Your cover letter should highlight your writing experience and why you're interested in joining our team.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Make sure your resume is up-to-date with all relevant experience and skills.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add custom filter for adding classes to form widgets -->
+<script>
+    // This script adds the 'add_class' filter functionality for Django templates
+    // In a real implementation, you would create a custom template filter in Python
+    // This is just for demonstration purposes
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Style the file inputs (which are normally hidden)
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => {
+            input.classList.add('sr-only'); // Screen reader only - visually hidden
+            
+            // Add file name display when a file is selected
+            input.addEventListener('change', function(e) {
+                const fileName = e.target.files[0]?.name;
+                const parent = input.closest('.border-dashed');
+                
+                // Remove any existing file name display
+                const existingDisplay = parent.querySelector('.file-name-display');
+                if (existingDisplay) {
+                    existingDisplay.remove();
+                }
+                
+                if (fileName) {
+                    const fileDisplay = document.createElement('div');
+                    fileDisplay.className = 'file-name-display mt-2 text-sm text-primary-600 bg-primary-50 px-3 py-1 rounded-md inline-block';
+                    fileDisplay.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        ${fileName}
+                    `;
+                    parent.querySelector('.space-y-1').appendChild(fileDisplay);
+                }
+            });
+        });
+        
+        // Style the textarea
+        const textarea = document.querySelector('textarea');
+        if (textarea) {
+            textarea.classList.add('pl-10', 'focus:ring-primary-500', 'focus:border-primary-500', 'block', 'w-full', 'sm:text-sm', 'border-gray-300', 'rounded-md', 'transition-all', 'duration-300');
+            textarea.setAttribute('rows', '5');
+            textarea.setAttribute('placeholder', 'Write your cover letter here...');
+        }
+        
+        // Style the select dropdown
+        const select = document.querySelector('select');
+        if (select) {
+            select.classList.add('pl-10', 'focus:ring-primary-500', 'focus:border-primary-500', 'block', 'w-full', 'sm:text-sm', 'border-gray-300', 'rounded-md', 'transition-all', 'duration-300');
+        }
+    });
+</script>
+{% endblock %}

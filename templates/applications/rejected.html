@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status Update</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333333; background-color: #f5f5f5;">
+    <!-- Main Table -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 40px 0;">
+                <!-- Email Container -->
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%;">
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(to right, #475569, #334155); padding: 30px 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <!-- Logo Placeholder -->
+                                        <img src="https://via.placeholder.com/120x40/334155/ffffff?text=Acumen+Ink" alt="Acumen Ink" style="display: block; margin-bottom: 15px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <h1 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; padding: 0;">Application Status Update</h1>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <p style="font-size: 16px; margin-top: 0; margin-bottom: 20px;">Dear {{ user.get_full_name|default:user.username }},</p>
+                                        
+                                        <p style="font-size: 16px; margin-top: 0; margin-bottom: 20px;">Thank you for your interest in joining Acumen Ink. After careful review of your application, we regret to inform you that we are unable to proceed with your application at this time.</p>
+                                        
+                                        {% if reason %}
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f8fafc; border-radius: 6px; margin-bottom: 20px;">
+                                            <tr>
+                                                <td style="padding: 15px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="24" valign="top">
+                                                                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" width="18" height="18" style="display: block;">
+                                                            </td>
+                                                            <td style="padding-left: 10px;">
+                                                                <p style="font-size: 15px; margin: 0; color: #475569;"><strong>Feedback:</strong> {{ reason }}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {% endif %}
+                                        
+                                        <p style="font-size: 16px; margin-top: 0; margin-bottom: 20px;">We encourage you to apply again in the future as your skills and experience develop. Our team has provided the following resources that may help you strengthen your next application:</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Resources Section -->
+                    <tr>
+                        <td style="padding: 0 30px 30px 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-radius: 6px; border: 1px solid #e2e8f0;">
+                                            <!-- Resource 1 -->
+                                            <tr>
+                                                <td style="padding: 15px; border-bottom: 1px solid #e2e8f0;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="40" valign="top">
+                                                                <div style="width: 32px; height: 32px; border-radius: 50%; background-color: #dbeafe; display: flex; align-items: center; justify-content: center; text-align: center;">
+                                                                    <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" width="16" height="16" style="display: block; margin: 0 auto;">
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding-left: 15px;">
+                                                                <p style="font-size: 15px; font-weight: 600; margin: 0 0 5px 0; color: #334155;">Writing Portfolio Development</p>
+                                                                <p style="font-size: 14px; margin: 0; color: #64748b;">Learn how to build a strong writing portfolio that showcases your skills.</p>
+                                                                <p style="margin: 10px 0 0 0;">
+                                                                    <a href="#" style="font-size: 14px; color: #2563eb; text-decoration: none; font-weight: 500;">Read More →</a>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            
+                                            <!-- Resource 2 -->
+                                            <tr>
+                                                <td style="padding: 15px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="40" valign="top">
+                                                                <div style="width: 32px; height: 32px; border-radius: 50%; background-color: #fef3c7; display: flex; align-items: center; justify-content: center; text-align: center;">
+                                                                    <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" width="16" height="16" style="display: block; margin: 0 auto;">
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding-left: 15px;">
+                                                                <p style="font-size: 15px; font-weight: 600; margin: 0 0 5px 0; color: #334155;">Free Writing Workshops</p>
+                                                                <p style="font-size: 14px; margin: 0; color: #64748b;">Join our monthly free workshops to improve your writing skills.</p>
+                                                                <p style="margin: 10px 0 0 0;">
+                                                                    <a href="#" style="font-size: 14px; color: #2563eb; text-decoration: none; font-weight: 500;">Register Now →</a>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- When to Apply Again -->
+                    <tr>
+                        <td style="padding: 0 30px 30px 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f1f5f9; border-radius: 6px; padding: 20px;">
+                                <tr>
+                                    <td>
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="24" valign="top">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/2278/2278049.png" width="18" height="18" style="display: block;">
+                                                </td>
+                                                <td style="padding-left: 10px;">
+                                                    <p style="font-size: 15px; font-weight: 600; margin: 0 0 5px 0; color: #334155;">When can I apply again?</p>
+                                                    <p style="font-size: 14px; margin: 0; color: #64748b;">You may submit a new application after 3 months. We recommend using this time to develop your skills and expand your portfolio.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Closing -->
+                    <tr>
+                        <td style="padding: 0 30px 30px 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <p style="font-size: 16px; margin-top: 0; margin-bottom: 10px;">We appreciate your interest in Acumen Ink and wish you the best in your writing career.</p>
+                                        
+                                        <p style="font-size: 16px; margin-top: 0; margin-bottom: 0;">Best regards,<br>The Acumen Ink Team</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td style="border-top: 1px solid #e5e7eb; font-size: 1px; height: 1px; line-height: 1px;">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Social Media -->
+                    <tr>
+                        <td align="center" style="padding: 20px 30px 0 30px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding: 0 10px;">
+                                        <a href="#" style="text-decoration: none;">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="24" height="24" style="display: block;">
+                                        </a>
+                                    </td>
+                                    <td align="center" style="padding: 0 10px;">
+                                        <a href="#" style="text-decoration: none;">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" width="24" height="24" style="display: block;">
+                                        </a>
+                                    </td>
+                                    <td align="center" style="padding: 0 10px;">
+                                        <a href="#" style="text-decoration: none;">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="24" height="24" style="display: block;">
+                                        </a>
+                                    </td>
+                                    <td align="center" style="padding: 0 10px;">
+                                        <a href="#" style="text-decoration: none;">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="24" height="24" style="display: block;">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px 30px 30px 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 12px; color: #6b7280; margin: 0 0 10px 0;">© 2025 Acumen Ink. All rights reserved.</p>
+                                        <p style="font-size: 12px; color: #6b7280; margin: 0 0 10px 0;">This email was sent to {{ user.email }}.</p>
+                                        <p style="font-size: 12px; color: #6b7280; margin: 0;">If you did not apply to Acumen Ink, please disregard this message.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+
+<h2>Applications by Status</h2>
+<canvas id="statusChart" width="400" height="200"></canvas>
+
+<h2>Top 10 Countries by Applications</h2>
+<canvas id="countryChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const statusLabels = {{ status_counts|pluck:"status"|safe }};
+  const statusData = {{ status_counts|pluck:"count"|safe }};
+
+  const countryLabels = {{ country_counts|pluck:"applicant__country"|safe }};
+  const countryData = {{ country_counts|pluck:"count"|safe }};
+
+  new Chart(document.getElementById('statusChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: statusLabels,
+      datasets: [{
+        label: 'Applications',
+        data: statusData,
+        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+      }]
+    },
+  });
+
+  new Chart(document.getElementById('countryChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: countryLabels,
+      datasets: [{
+        label: 'Applications',
+        data: countryData,
+        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+      }]
+    },
+  });
+</script>
+
+{% endblock %}

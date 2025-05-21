@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Join Acumen Ink as a Writer!</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.5; color: #333;">
+    <h2>Join Acumen Ink as a Writer!</h2>
+    <p>Hi there,</p>
+    <p>Your friend <strong>{{ referrer_name }}</strong> invited you to apply as a writer on <strong>Acumen Ink</strong>, an exciting online writing platform.</p>
+    <p><a href="{{ referral_link }}" style="background-color:#007bff; color:white; padding: 10px 15px; text-decoration:none; border-radius:5px;">Apply Here</a></p>
+    <p>We look forward to seeing your application!</p>
+    <br>
+    <p>Best regards,<br>The Acumen Ink Team</p>
+</body>
+</html>

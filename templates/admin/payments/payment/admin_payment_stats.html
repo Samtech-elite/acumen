@@ -1,0 +1,61 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Payment Summary</h1>
+<div class="row">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-header">Total Received</div>
+      <div class="card-body">
+        <h4 class="card-title">${{ total_received }}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-header">Pending Verifications</div>
+      <div class="card-body">
+        <h4 class="card-title">{{ pending_count }}</h4>
+      </div>
+    </div>
+  </div>
+ <div class="row mt-4">
+  <div class="col-md-3">
+    <div class="card border-primary mb-3">
+      <div class="card-header bg-primary text-white">Total Received</div>
+      <div class="card-body">
+        <h5 class="card-title">${{ total_verified_amount }}</h5>
+        <p class="card-text">Across all verified payments</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card border-warning mb-3">
+      <div class="card-header bg-warning text-white">Pending Verifications</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ pending_count }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card border-success mb-3">
+      <div class="card-header bg-success text-white">Approved Payments</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ approved_count }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card border-danger mb-3">
+      <div class="card-header bg-danger text-white">Rejected Payments</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ rejected_count }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}
