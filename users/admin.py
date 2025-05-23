@@ -16,7 +16,7 @@ class ApplicantProfileInline(admin.StackedInline):
 class CustomUserAdmin(UserAdmin):
     """Admin interface for CustomUser model."""
     ordering = ('-date_joined',)
-    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff', 
+    list_display = ('first_name', 'last_name', 'is_active', 'is_staff', 
                    'is_verified', 'date_joined', 'get_country', 'has_application')
     list_filter = ('is_staff', 'is_active', 'is_verified', 'user_profile__country')
     search_fields = ('email', 'first_name', 'last_name')

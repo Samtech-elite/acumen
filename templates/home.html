@@ -2,7 +2,7 @@
 {% block content %}
 
 <!-- Writer Hiring Notification Banner -->
-<div id="hiring-notification" class="relative bg-gradient-to-r from-primary-600 to-primary-800 text-white overflow-hidden mb-8 rounded-lg shadow-md">
+<div id="hiring-notification" class="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white overflow-hidden mb-8 rounded-lg shadow-lg">
     <!-- Background Pattern -->
     <div class="absolute inset-0 overflow-hidden opacity-10">
         <svg class="absolute left-0 top-0 h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -15,11 +15,11 @@
     </div>
     
     <!-- Content Container -->
-    <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
             <div class="w-0 flex-1 flex items-center">
                 <!-- Animated Icon -->
-                <span class="flex p-2 rounded-lg bg-primary-800 animate-bounce-subtle">
+                <span class="flex p-2 rounded-lg bg-indigo-800 animate-bounce-subtle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                     </svg>
@@ -32,19 +32,11 @@
                 </p>
             </div>
             
-            <!-- CTA Button -->
-            <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                <a href="#apply-now" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-600 bg-white hover:bg-primary-50 transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-600 focus:ring-white group">
-                    <span>Apply Now</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5 text-primary-500 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
+          
             
             <!-- Dismiss Button -->
             <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
-                <button type="button" id="dismiss-notification" class="flex p-2 rounded-md hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-white">
+                <button type="button" id="dismiss-notification" class="flex p-2 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200">
                     <span class="sr-only">Dismiss</span>
                     <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -61,182 +53,360 @@
 </div>
 
 <!-- Hero Section -->
-<header class="relative overflow-hidden bg-gradient-to-r from-primary-900 to-primary-700 text-white py-20 px-4 sm:px-6 rounded-xl shadow-lg mb-16 transform transition-all duration-500 hover:shadow-xl">
+<header class="relative overflow-hidden bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-700 text-white py-24 px-4 sm:px-6 rounded-xl shadow-xl mb-20 transform transition-all duration-500 hover:shadow-2xl">
     <div class="absolute inset-0 overflow-hidden">
         <svg class="absolute left-0 bottom-0 h-full w-full text-white opacity-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="currentColor" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,181.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
         </svg>
     </div>
     <div class="relative max-w-3xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in-down">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-down tracking-tight">
             Acumen Ink
         </h1>
-        <p class="text-xl md:text-2xl mb-8 text-primary-100 animate-fade-in-up">
+        <p class="text-xl md:text-2xl mb-10 text-indigo-100 animate-fade-in-up leading-relaxed">
             Connecting Talented Writers to Global Opportunities
         </p>
-        <a href="{% url 'register' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-900 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 shadow-md transition-all duration-300 transform hover:scale-105 animate-pulse-slow">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
-            Join Us
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'register' %}" class="inline-flex items-center px-8 py-4 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md transition-all duration-300 transform hover:scale-105 animate-pulse-slow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Join Us
+            </a>
+            <a href="{% url 'apply' %}" class="inline-flex items-center px-8 py-4 border border-white text-base font-medium rounded-md text-white bg-transparent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white shadow-md transition-all duration-300 transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                </svg>
+                Apply Now
+            </a>
+        </div>
     </div>
 </header>
 
 <!-- Stats Section -->
-<section class="py-12 mb-16">
+<section class="py-16 mb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg shadow-md p-8 text-center transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 text-primary-800 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Our Global Impact</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-indigo-100 text-indigo-800 mb-6 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </div>
-                <div class="counter text-4xl font-bold text-primary-800 mb-2" data-target="1200">0</div>
-                <p class="text-gray-600 font-medium">Writers Hired</p>
+                <div class="counter text-5xl font-bold text-indigo-800 mb-3" data-target="1200">0</div>
+                <p class="text-gray-600 font-medium text-lg">Writers Hired</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-8 text-center transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 text-primary-800 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-indigo-100 text-indigo-800 mb-6 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                 </div>
-                <div class="counter text-4xl font-bold text-primary-800 mb-2" data-target="4500000">0</div>
-                <p class="text-gray-600 font-medium">Words Written</p>
+                <div class="counter text-5xl font-bold text-indigo-800 mb-3" data-target="4500000">0</div>
+                <p class="text-gray-600 font-medium text-lg">Words Written</p>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-8 text-center transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 text-primary-800 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-indigo-100 text-indigo-800 mb-6 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h.5A2.5 2.5 0 0020 5.5v-1.5" />
                     </svg>
                 </div>
-                <div class="counter text-4xl font-bold text-primary-800 mb-2" data-target="35">0</div>
-                <p class="text-gray-600 font-medium">Countries Served</p>
+                <div class="counter text-5xl font-bold text-indigo-800 mb-3" data-target="35">0</div>
+                <p class="text-gray-600 font-medium text-lg">Countries Served</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Features Section -->
-<section class="py-12 bg-gray-50 rounded-xl mb-16">
+<section class="py-16 bg-gradient-to-b from-gray-50 to-white rounded-3xl mb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">
             Why Write with Us?
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg shadow-md p-6 transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-12 w-12 rounded-md bg-primary-600 text-white mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <p class="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
+            Join our global community of writers and enjoy these benefits
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="bg-white rounded-xl shadow-lg p-8 transform transition duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-16 w-16 rounded-xl bg-indigo-600 text-white mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Flexible Schedules</h3>
-                <p class="text-gray-600">Work on your own terms and set your own hours. Perfect for balancing life and career.</p>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-3">Flexible Schedules</h3>
+                <p class="text-gray-600 text-lg">Work on your own terms and set your own hours. Perfect for balancing life and career.</p>
+                <a href="#" class="inline-flex items-center mt-6 text-indigo-600 hover:text-indigo-800 font-medium">
+                    Learn more
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-6 transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-12 w-12 rounded-md bg-primary-600 text-white mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white rounded-xl shadow-lg p-8 transform transition duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-16 w-16 rounded-xl bg-indigo-600 text-white mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Diverse Writing Projects</h3>
-                <p class="text-gray-600">From blog posts to technical documentation, expand your portfolio with varied assignments.</p>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-3">Diverse Writing Projects</h3>
+                <p class="text-gray-600 text-lg">From blog posts to technical documentation, expand your portfolio with varied assignments.</p>
+                <a href="#" class="inline-flex items-center mt-6 text-indigo-600 hover:text-indigo-800 font-medium">
+                    View projects
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
             </div>
             
-            <div class="bg-white rounded-lg shadow-md p-6 transform transition duration-500 hover:shadow-xl hover:-translate-y-1">
-                <div class="inline-flex items-center justify-center h-12 w-12 rounded-md bg-primary-600 text-white mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white rounded-xl shadow-lg p-8 transform transition duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100">
+                <div class="inline-flex items-center justify-center h-16 w-16 rounded-xl bg-indigo-600 text-white mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Supportive Writer Community</h3>
-                <p class="text-gray-600">Join a network of like-minded professionals who share knowledge and opportunities.</p>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-3">Supportive Writer Community</h3>
+                <p class="text-gray-600 text-lg">Join a network of like-minded professionals who share knowledge and opportunities.</p>
+                <a href="#" class="inline-flex items-center mt-6 text-indigo-600 hover:text-indigo-800 font-medium">
+                    Meet writers
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Testimonials Section (New) -->
+<section class="py-16 mb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">
+            Writer Success Stories
+        </h2>
+        <p class="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
+            Hear from writers who have transformed their careers with us
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-800 text-xl font-bold">
+                        JD
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold">Jane Doe</h4>
+                        <p class="text-gray-500">Technical Writer</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-gray-600 italic">"Joining Acumen Ink was the best career decision I've made. The flexible schedule allows me to work from anywhere, and I've doubled my income in just 6 months."</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-800 text-xl font-bold">
+                        MS
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold">Michael Smith</h4>
+                        <p class="text-gray-500">Content Writer</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-gray-600 italic">"The diverse range of projects has helped me grow as a writer. I've written for tech startups, healthcare companies, and even travel blogs. The community is incredibly supportive."</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-800 text-xl font-bold">
+                        AR
+                    </div>
+                    <div class="ml-4">
+                        <h4 class="text-lg font-semibold">Aisha Rahman</h4>
+                        <p class="text-gray-500">Copywriter</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="flex text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-gray-600 italic">"As a non-native English speaker, I was worried about opportunities. Acumen Ink valued my unique perspective and provided resources to improve my skills. Now I work with global brands."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- FAQ Section -->
-<section class="py-12 mb-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
+<section class="py-16 bg-gradient-to-b from-gray-50 to-white rounded-3xl mb-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">
             Frequently Asked Questions
         </h2>
+        <p class="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
+            Everything you need to know about working with us
+        </p>
         
-        <div class="space-y-4">
-            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full px-6 py-4 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
+        <div class="space-y-6">
+            <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                <button class="accordion-button w-full px-8 py-5 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
                     <span>How do I apply?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-primary-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-indigo-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <div class="accordion-content hidden px-6 py-4 bg-gray-50">
-                    <p class="text-gray-600">Click on "Join Us" to start your application. You'll need to upload your resume and writing samples.</p>
+                <div class="accordion-content hidden px-8 py-5 bg-gray-50">
+                    <p class="text-gray-600 text-lg">Click on "Apply Now" to start your application. You'll need to upload your resume and writing samples. Our team reviews applications within 3-5 business days and will contact you for the next steps.</p>
                 </div>
             </div>
             
-            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full px-6 py-4 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
+            <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                <button class="accordion-button w-full px-8 py-5 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
                     <span>Do I need writing experience?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-primary-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-indigo-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <div class="accordion-content hidden px-6 py-4 bg-gray-50">
-                    <p class="text-gray-600">Previous writing experience is preferred but not required. Passion and skill are what we value most.</p>
+                <div class="accordion-content hidden px-8 py-5 bg-gray-50">
+                    <p class="text-gray-600 text-lg">Previous writing experience is preferred but not required. We value passion, skill, and willingness to learn. Many of our successful writers started with minimal experience but demonstrated strong potential in their application samples.</p>
                 </div>
             </div>
             
-            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full px-6 py-4 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
+            <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                <button class="accordion-button w-full px-8 py-5 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
                     <span>How will I get tasks?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-primary-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-indigo-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <div class="accordion-content hidden px-6 py-4 bg-gray-50">
-                    <p class="text-gray-600">Once accepted, you'll receive writing requests through our internal platform based on your skills.</p>
+                <div class="accordion-content hidden px-8 py-5 bg-gray-50">
+                    <p class="text-gray-600 text-lg">Once accepted, you'll receive writing requests through our internal platform based on your skills and availability. You can choose which projects to accept, and our matching algorithm will suggest opportunities that align with your expertise.</p>
+                </div>
+            </div>
+            
+            <div class="accordion-item bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                <button class="accordion-button w-full px-8 py-5 text-left text-lg font-medium text-gray-900 focus:outline-none flex justify-between items-center">
+                    <span>What are the payment terms?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 text-indigo-600 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content hidden px-8 py-5 bg-gray-50">
+                    <p class="text-gray-600 text-lg">We offer competitive rates based on project complexity and your experience level. Payments are processed bi-weekly through your preferred payment method (PayPal, direct deposit, or wire transfer). All payment details are clearly outlined before you accept any project.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- CTA Section (New) -->
+<section class="py-16 mb-20 bg-indigo-900 rounded-3xl text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Writing Journey?</h2>
+        <p class="text-xl text-indigo-100 mb-10 max-w-3xl mx-auto">Join our global community of writers today and unlock new opportunities for your career</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'apply' %}" 
+               id="apply-now-cta"
+               class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-indigo-900 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-900 focus:ring-white shadow-md transition-all duration-300 transform hover:scale-105">
+                Apply Now
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center px-8 py-4 border border-white text-lg font-medium rounded-md text-white bg-transparent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white shadow-md transition-all duration-300">
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
 <!-- Chat Widget -->
 <div class="fixed bottom-6 right-6 z-50">
-    <button id="chat-button" class="flex items-center justify-center h-14 w-14 rounded-full bg-primary-600 text-white shadow-lg hover:bg-primary-700 focus:outline-none transform transition-transform duration-300 hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <button id="chat-button" class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-600 text-white shadow-xl hover:bg-indigo-700 focus:outline-none transform transition-transform duration-300 hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
         </svg>
     </button>
     
-    <div id="chat-widget" class="hidden absolute bottom-16 right-0 w-80 bg-white rounded-lg shadow-xl overflow-hidden">
-        <div class="bg-primary-600 text-white px-4 py-3 flex justify-between items-center">
-            <h3 class="font-medium">Chat with Us</h3>
-            <button id="close-chat" class="text-white focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <div id="chat-widget" class="hidden absolute bottom-20 right-0 w-96 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
+        <div class="bg-indigo-600 text-white px-6 py-4 flex justify-between items-center">
+            <h3 class="font-medium text-lg">Chat with Us</h3>
+            <button id="close-chat" class="text-white focus:outline-none hover:text-indigo-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </button>
         </div>
-        <div class="p-4 h-64 bg-gray-50 overflow-y-auto">
-            <div class="flex items-start mb-4">
+        <div id="chat-messages" class="p-6 h-80 bg-gray-50 overflow-y-auto">
+            <div class="flex items-start mb-6">
                 <div class="flex-shrink-0">
-                    <div class="h-8 w-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-medium">AI</div>
+                    <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-medium">AI</div>
                 </div>
-                <div class="ml-3 bg-white p-3 rounded-lg shadow-sm">
-                    <p class="text-sm text-gray-800">Hello! How can I help you with your writing career today?</p>
+                <div class="ml-4 bg-white p-4 rounded-lg shadow-sm max-w-xs">
+                    <p class="text-gray-800">Hello! How can I help you with your writing career today?</p>
                 </div>
             </div>
         </div>
         <div class="p-4 border-t">
             <div class="flex">
-                <input type="text" placeholder="Type your message..." class="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                <button class="bg-primary-600 text-white px-4 py-2 rounded-r-md hover:bg-primary-700 focus:outline-none">
+                <input id="chat-input" type="text" placeholder="Type your message..." class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                <button id="send-message" class="bg-indigo-600 text-white px-6 py-3 rounded-r-lg hover:bg-indigo-700 focus:outline-none transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                     </svg>
@@ -248,10 +418,11 @@
 
 <!-- Add custom styles for animations -->
 <style>
+    /* Define all keyframes at the top */
     @keyframes fadeInDown {
         from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-30px);
         }
         to {
             opacity: 1;
@@ -262,7 +433,7 @@
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -273,9 +444,45 @@
     @keyframes pulseSlow {
         0%, 100% {
             opacity: 1;
+            transform: scale(1);
         }
         50% {
-            opacity: 0.8;
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes bounce-subtle {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10%);
+        }
+    }
+    
+    @keyframes shine {
+        0% {
+            left: -100%;
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            left: 100%;
+            opacity: 0;
+        }
+    }
+    
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
         }
     }
     
@@ -292,33 +499,12 @@
         animation: pulseSlow 3s infinite;
     }
     
-    /* Custom animation for the subtle bounce effect */
-    @keyframes bounce-subtle {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-10%);
-        }
-    }
-    
     .animate-bounce-subtle {
         animation: bounce-subtle 2s infinite ease-in-out;
     }
     
-    /* Shine effect animation */
-    @keyframes shine {
-        0% {
-            left: -100%;
-            opacity: 0;
-        }
-        50% {
-            opacity: 0.5;
-        }
-        100% {
-            left: 100%;
-            opacity: 0;
-        }
+    .animate-slideDown {
+        animation: slideDown 0.5s ease-out;
     }
     
     .hiring-shine {
@@ -340,147 +526,293 @@
     html {
         scroll-behavior: smooth;
     }
+    
+    /* Improved accessibility focus styles */
+    a:focus, button:focus {
+        outline: 2px solid rgba(79, 70, 229, 0.5);
+        outline-offset: 2px;
+    }
+    
+    /* Improved transitions */
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
 </style>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Notification Banner Functionality
-        const notification = document.getElementById('hiring-notification');
-        const dismissButton = document.getElementById('dismiss-notification');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all page components
+        initializeNotificationBanner();
+        initializeCounters();
+        initializeFAQAccordion();
+        initializeChatWidget();
+        initializeApplyButtons();
         
-        if (dismissButton && notification) {
+        // Notification Banner Functionality
+        function initializeNotificationBanner() {
+            const notification = document.getElementById('hiring-notification');
+            const dismissButton = document.getElementById('dismiss-notification');
+            
+            if (!notification || !dismissButton) {
+                console.warn('Notification banner elements not found');
+                return;
+            }
+            
+            // Check if notification was previously dismissed
+            if (localStorage.getItem('hiringNotificationDismissed') === 'true') {
+                notification.style.display = 'none';
+            } else {
+                // Add entrance animation
+                notification.classList.add('animate-slideDown');
+            }
+            
+            // Set up dismiss functionality
             dismissButton.addEventListener('click', function() {
                 // Add fade-out animation
-                notification.style.transition = 'opacity 0.5s ease-out, max-height 0.5s ease-out, padding 0.5s ease-out';
+                notification.style.transition = 'opacity 0.5s ease-out, max-height 0.5s ease-out, padding 0.5s ease-out, margin 0.5s ease-out';
                 notification.style.opacity = '0';
                 notification.style.maxHeight = '0';
                 notification.style.padding = '0';
+                notification.style.margin = '0';
                 
                 // Remove from DOM after animation completes
                 setTimeout(() => {
                     notification.remove();
                 }, 500);
                 
-                // Optionally store in localStorage to prevent showing again in this session
+                // Store in localStorage to prevent showing again
                 localStorage.setItem('hiringNotificationDismissed', 'true');
             });
         }
         
-        // Check if notification was previously dismissed
-        if (localStorage.getItem('hiringNotificationDismissed') === 'true') {
-            notification.style.display = 'none';
-        } else {
-            // Add entrance animation
-            notification.style.animation = 'slideDown 0.5s ease-out';
-        }
-        
-        // Define entrance animation
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes slideDown {
-                    from {
-                        transform: translateY(-100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-                }
-            </style>
-        `);
-        
-        // Improved Counter Animation with IntersectionObserver
-        const counters = document.querySelectorAll('.counter');
-        
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.dataset.target);
-                    
-                    // Format large numbers with commas
-                    const formattedNumber = new Intl.NumberFormat().format(target);
-                    
-                    // Use CountUp.js for smooth animation
-                    const options = {
-                        duration: 2.5,
-                        useGrouping: true,
-                    };
-                    
-                    const countUp = new CountUp(counter, target, options);
-                    if (!countUp.error) {
-                        countUp.start();
-                    } else {
-                        console.error(countUp.error);
-                        counter.innerText = formattedNumber;
-                    }
-                    
-                    // Unobserve after animation
-                    observer.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        counters.forEach(counter => {
-            counterObserver.observe(counter);
-        });
-        
-        // Enhanced Accordion Functionality
-        const accButtons = document.querySelectorAll('.accordion-button');
-        accButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                // Toggle active class
-                this.classList.toggle('active');
-                
-                // Toggle icon rotation
-                const icon = this.querySelector('.accordion-icon');
-                icon.classList.toggle('rotate-180');
-                
-                // Toggle content visibility with animation
-                const content = this.nextElementSibling;
-                if (content.classList.contains('hidden')) {
-                    content.classList.remove('hidden');
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    content.style.transition = 'max-height 0.3s ease-in-out';
-                } else {
-                    content.style.maxHeight = '0px';
-                    setTimeout(() => {
-                        content.classList.add('hidden');
-                    }, 300);
-                }
-                
-                // Close other accordions
-                accButtons.forEach(otherBtn => {
-                    if (otherBtn !== btn) {
-                        otherBtn.classList.remove('active');
-                        otherBtn.querySelector('.accordion-icon').classList.remove('rotate-180');
-                        const otherContent = otherBtn.nextElementSibling;
-                        otherContent.style.maxHeight = '0px';
-                        setTimeout(() => {
-                            otherContent.classList.add('hidden');
-                        }, 300);
+        // Improved Counter Animation
+        function initializeCounters() {
+            const counters = document.querySelectorAll('.counter');
+            if (!counters.length) {
+                console.warn('No counter elements found');
+                return;
+            }
+            
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.dataset.target);
+                        let count = 0;
+                        const duration = 2000; // ms
+                        const increment = Math.ceil(target / (duration / 30));
+                        
+                        const updateCount = () => {
+                            count += increment;
+                            if (count >= target) {
+                                counter.innerText = new Intl.NumberFormat().format(target);
+                                clearInterval(timer);
+                            } else {
+                                counter.innerText = new Intl.NumberFormat().format(count);
+                            }
+                        };
+                        
+                        const timer = setInterval(updateCount, 30);
+                        
+                        // Unobserve after animation
+                        observer.unobserve(counter);
                     }
                 });
+            }, { threshold: 0.1 });
+            
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
             });
-        });
+        }
         
-        // Chat Widget Toggle
-        const chatButton = document.getElementById('chat-button');
-        const chatWidget = document.getElementById('chat-widget');
-        const closeChat = document.getElementById('close-chat');
+        // Enhanced Accordion Functionality
+        function initializeFAQAccordion() {
+            const accButtons = document.querySelectorAll('.accordion-button');
+            if (!accButtons.length) {
+                console.warn('No accordion elements found');
+                return;
+            }
+            
+            accButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    
+                    // Toggle icon rotation
+                    const icon = this.querySelector('.accordion-icon');
+                    if (icon) {
+                        icon.classList.toggle('rotate-180');
+                    }
+                    
+                    // Toggle content visibility with animation
+                    const content = this.nextElementSibling;
+                    if (!content) return;
+                    
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        setTimeout(() => {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        }, 10);
+                    } else {
+                        content.style.maxHeight = '0px';
+                        setTimeout(() => {
+                            content.classList.add('hidden');
+                        }, 300);
+                    }
+                    
+                    // Close other accordions
+                    accButtons.forEach(otherBtn => {
+                        if (otherBtn !== btn) {
+                            otherBtn.classList.remove('active');
+                            const otherIcon = otherBtn.querySelector('.accordion-icon');
+                            if (otherIcon) {
+                                otherIcon.classList.remove('rotate-180');
+                            }
+                            const otherContent = otherBtn.nextElementSibling;
+                            if (otherContent && !otherContent.classList.contains('hidden')) {
+                                otherContent.style.maxHeight = '0px';
+                                setTimeout(() => {
+                                    otherContent.classList.add('hidden');
+                                }, 300);
+                            }
+                        }
+                    });
+                });
+            });
+        }
         
-        if (chatButton && chatWidget && closeChat) {
+        // Chat Widget functionality
+        function initializeChatWidget() {
+            const chatButton = document.getElementById('chat-button');
+            const chatWidget = document.getElementById('chat-widget');
+            const closeChat = document.getElementById('close-chat');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-message');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            // Check if all required elements exist
+            if (!chatButton || !chatWidget || !closeChat || !chatInput || !sendButton || !chatMessages) {
+                console.warn('Chat widget elements not found');
+                return;
+            }
+            
+            // Toggle chat widget
             chatButton.addEventListener('click', function() {
                 chatWidget.classList.toggle('hidden');
-                chatButton.classList.toggle('scale-110');
+                if (!chatWidget.classList.contains('hidden')) {
+                    chatInput.focus();
+                    chatButton.classList.add('scale-110');
+                    // Add entrance animation
+                    chatWidget.style.animation = 'fadeInUp 0.3s ease-out forwards';
+                } else {
+                    chatButton.classList.remove('scale-110');
+                }
             });
             
+            // Close chat widget
             closeChat.addEventListener('click', function() {
-                chatWidget.classList.add('hidden');
-                chatButton.classList.remove('scale-110');
+                chatWidget.style.animation = 'fadeInDown 0.3s ease-out reverse forwards';
+                setTimeout(() => {
+                    chatWidget.classList.add('hidden');
+                    chatButton.classList.remove('scale-110');
+                }, 300);
+            });
+            
+            // Send message functionality
+            sendButton.addEventListener('click', sendMessage);
+            
+            // Send message on Enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message !== '') {
+                    addMessage('You', message, 'user');
+                    chatInput.value = '';
+                    
+                    // Simulate response (replace with actual backend call)
+                    setTimeout(() => {
+                        const responses = [
+                            "Thanks for your interest! Our team will review your message.",
+                            "That's a great question about writing opportunities. We have various projects available.",
+                            "We typically respond to applications within 3-5 business days.",
+                            "Yes, we offer remote work positions for writers in most countries.",
+                            "Our rates vary depending on the project complexity and your experience level."
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        addMessage('AI', randomResponse, 'assistant');
+                    }, 1000);
+                }
+            }
+            
+            function addMessage(sender, text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex items-start mb-6 ' + (type === 'user' ? 'justify-end' : '');
+                
+                if (type === 'user') {
+                    messageDiv.innerHTML = `
+                        <div class="mr-4 bg-indigo-50 p-4 rounded-lg shadow-sm max-w-xs">
+                            <p class="text-gray-800">${text}</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <div class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center text-white text-sm font-medium">
+                                ${sender.charAt(0)}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="flex-shrink-0">
+                            <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-medium">
+                                ${sender}
+                            </div>
+                        </div>
+                        <div class="ml-4 bg-white p-4 rounded-lg shadow-sm max-w-xs">
+                            <p class="text-gray-800">${text}</p>
+                        </div>
+                    `;
+                }
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Add entrance animation
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transform = 'translateY(10px)';
+                messageDiv.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                
+                setTimeout(() => {
+                    messageDiv.style.opacity = '1';
+                    messageDiv.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        }
+        
+        // Apply Button Functionality
+        function initializeApplyButtons() {
+            const applyButtons = document.querySelectorAll('#apply-now-button, #apply-now-cta');
+            
+            applyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add click animation
+                    this.classList.add('scale-95');
+                    setTimeout(() => {
+                        this.classList.remove('scale-95');
+                    }, 200);
+                    
+                    // Log application click (can be replaced with analytics)
+                    console.log('Application button clicked');
+                    
+                    // Note: The actual form submission happens through the href attribute
+                    // This is just for additional functionality/tracking
+                });
             });
         }
     });

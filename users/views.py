@@ -145,15 +145,25 @@ def profile_update(request):
         # Create profile if it doesn't exist
         profile = ApplicantProfile.objects.create(user=request.user)
    
-    
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, instance=profile)
+        p_form = ProfileUpdateForm(
+            request.POST, 
+            request.FILES,  # Add this line to handle file uploads
+            instance=profile
+        )
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            p_form.save()
-            messages.success(request, 'Profile updated!')
+            profile_instance = p_form.save(commit=False)
+            
+            # Handle file upload if provided
+            if 'portfolio_file' in request.FILES:
+                profile_instance.portfolio_file = request.FILES['portfolio_file']
+                profile_instance.has_portfolio_file = True
+                
+            profile_instance.save()
+            messages.success(request, 'Profile updated successfully!')
             return redirect('apply')
     else:
         u_form = UserUpdateForm(instance=request.user)

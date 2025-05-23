@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'users',
     'payment',
     'applications',
-    'analytics',
     'referrals',
     'security',
     'widget_tweaks',

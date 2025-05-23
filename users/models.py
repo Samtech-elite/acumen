@@ -59,8 +59,15 @@ class CustomUser(AbstractUser):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
-
 class ApplicantProfile(models.Model):
+    EDUCATION_CHOICES = [
+        ('high_school', 'High School'),
+        ('bachelors', 'Bachelor\'s Degree'),
+        ('masters', 'Master\'s Degree'),
+        ('phd', 'PhD'),
+        ('other', 'Other')
+    ]
+    
     user = models.OneToOneField(
         CustomUser, 
         on_delete=models.CASCADE,
@@ -68,8 +75,15 @@ class ApplicantProfile(models.Model):
     )
     country = CountryField(blank_label='(Select country)')
     education = models.TextField(blank=True)
-    expertise_areas = models.TextField(help_text="List your writing expertise")
+    education_level = models.CharField(
+        max_length=20,
+        choices=EDUCATION_CHOICES,
+        default=''
+    )
+    expertise_areas = models.TextField(help_text="List up to 5 writing expertise areas separated by commas")
     portfolio_link = models.URLField(blank=True, null=True)
+    portfolio_file = models.FileField(upload_to='portfolios/', blank=True, null=True)
+    has_portfolio_file = models.BooleanField(default=False)
     last_active = models.DateTimeField(auto_now=True)  # for tracking
 
     def __str__(self):
