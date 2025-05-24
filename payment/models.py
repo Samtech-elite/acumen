@@ -17,7 +17,7 @@ class Payment(models.Model):
         ('approved', _('Approved by Admin')),
         ('rejected', _('Rejected')),
     ]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payments', null=True, blank=True)
     application = models.OneToOneField(Application, on_delete=models.CASCADE, related_name='payment')
     method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES)
     reference_number = models.CharField(max_length=100, blank=True, null=True, help_text=_("Optional reference number for the payment"))
@@ -27,7 +27,8 @@ class Payment(models.Model):
     confirmation_verified = models.BooleanField(default=False)
     internal_reference = models.CharField(
         max_length=100, 
-        unique=True, 
+        blank=True, 
+        null=True, 
         help_text=_("Unique internal reference for tracking this payment")
     )
     external_reference = models.CharField(
