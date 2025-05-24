@@ -164,20 +164,40 @@
                                 </div>
                             </div>
 
-                            {% if form.details_form and payment.method == 'paypal' %}
-                                <div class="space-y-4">
-                                    {{ form.details_form.as_p }}
-                                </div>
-                            {% endif %}
 
                             {% if form.payment_form.method.value == 'paypal' or form.details_form and payment.method == 'paypal' %}
-                                <div class="space-y-2">
-                                    <label for="id_email" class="block text-sm font-medium text-slate-700">PayPal Email</label>
-                                    <input type="email" name="email" id="id_email" 
-                                           class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                           placeholder="your.email@example.com" required
-                                           {% if form.details_form.instance.email %}value="{{ form.details_form.instance.email }}"{% endif %}>
-                                    <p class="text-sm text-slate-600">Enter the email address associated with your PayPal account</p>
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 mb-6">
+                                    <h4 class="font-medium text-blue-800 mb-4 flex items-center">
+                                        <i class="fas fa-envelope-open-text text-blue-600 mr-2"></i>
+                                        Your PayPal Account
+                                    </h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="relative">
+                                            <label for="id_email" class="block text-sm font-medium text-slate-700 mb-2">PayPal Email Address</label>
+                                            <div class="relative rounded-lg shadow-sm">
+                                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                    <i class="fas fa-at text-blue-500"></i>
+                                                </div>
+                                                <input type="email" name="email" id="id_email" 
+                                                       class="w-full pl-10 pr-12 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                                       placeholder="your.email@example.com" required
+                                                       {% if form.details_form.instance.email %}value="{{ form.details_form.instance.email }}"{% endif %}>
+                                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                                    <i class="fab fa-paypal text-blue-500"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm text-slate-600 mt-2 flex items-start">
+                                                <i class="fas fa-info-circle text-blue-500 mr-2 mt-0.5"></i>
+                                                <span>We need the email address associated with your PayPal account to verify your payment</span>
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="flex items-center py-2 px-3 bg-blue-100 rounded-lg text-sm text-blue-700">
+                                            <i class="fas fa-shield-alt text-blue-600 mr-2"></i>
+                                            <span>This information is encrypted and protected</span>
+                                        </div>
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
@@ -226,7 +246,7 @@
                                             </span>
                                             <input type="tel" id="mpesa-phone" 
                                                    class="flex-1 px-4 py-3 border border-slate-300 rounded-r-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
-                                                   placeholder="722123456" pattern="[7-9][0-9]{8}"
+                                                   placeholder="722123456" pattern="[1,7-9][0-9]{8}"
                                                    {% if form.details_form.instance.phone_number %}
                                                        value="{{ form.details_form.instance.phone_number|slice:"3:" }}"
                                                    {% endif %}>
@@ -641,6 +661,20 @@
     #processing-overlay.visible {
         @apply opacity-100 pointer-events-auto;
     }
+
+    /* Ensure only active payment details are shown */
+    .payment-method-details {
+        display: none;
+    }
+
+    .payment-method-details.active {
+        display: block !important;
+    }
+
+    /* Ensure proper visual feedback for selected payment method */
+    .payment-method-card input:checked + div {
+        @apply border-blue-500 bg-blue-50 shadow-md ring-2 ring-blue-200;
+    }
 </style>
 {% endblock %}
 
@@ -680,18 +714,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show/hide payment method details
     function showPaymentDetails(method) {
-        // Hide all details
+        // Hide all payment method details first
         document.querySelectorAll('.payment-method-details').forEach(el => {
             el.classList.remove('active');
         });
         
-        // Show selected method details
+        // Remove selected state from all payment method cards
+        document.querySelectorAll('.payment-method-card input').forEach(input => {
+            input.checked = false;
+        });
+        
+        // Set the selected method
+        const selectedInput = document.querySelector(`input[name="method"][value="${method}"]`);
+        if (selectedInput) {
+            selectedInput.checked = true;
+        }
+        
+        // Show the selected method's details
         const detailsSection = document.getElementById(`${method}-details`);
         if (detailsSection) {
             detailsSection.classList.add('active');
         }
         
-        // Show modern M-Pesa experience for M-Pesa payments
+        // Handle M-Pesa modern experience
         if (method === 'mpesa') {
             classicPayment.classList.add('hidden');
             modernMpesaExperience.classList.remove('hidden');
@@ -701,54 +746,34 @@ document.addEventListener('DOMContentLoaded', function() {
             modernMpesaExperience.classList.add('hidden');
         }
     }
-    
-    // Update step indicators
-    function updateStepIndicators(activeStep) {
-        const steps = [step1, step2, step3];
-        const contents = [step1Content, step2Content, step3Content];
-        
-        // Update progress bar
-        if (activeStep >= 1) {
-            progressBar.style.width = '50%';
-        }
-        if (activeStep >= 2) {
-            progressBar.style.width = '100%';
-        }
-        if (activeStep === 0) {
-            progressBar.style.width = '0%';
-        }
-        
-        // Update step indicators
-        steps.forEach((step, index) => {
-            const circle = step.querySelector('div');
-            const label = step.querySelector('span');
+
+    // Update payment details form via AJAX
+    function updatePaymentDetailsForm(method) {
+        const currentMethod = document.querySelector('input[name="current_method"]');
+        if (currentMethod && currentMethod.value !== method) {
+            currentMethod.value = method;
             
-            if (index < activeStep) {
-                // Completed
-                circle.innerHTML = '<i class="fas fa-check"></i>';
-                circle.className = 'w-10 h-10 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center text-white font-medium text-sm';
-                label.className = 'text-xs font-medium text-green-600 mt-2';
-            } else if (index === activeStep) {
-                // Active
-                circle.innerHTML = (index + 1).toString();
-                circle.className = 'w-10 h-10 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center text-white font-medium text-sm';
-                label.className = 'text-xs font-medium text-green-600 mt-2';
-            } else {
-                // Future
-                circle.innerHTML = (index + 1).toString();
-                circle.className = 'w-10 h-10 rounded-full border-2 border-slate-300 bg-white flex items-center justify-center text-slate-400 font-medium text-sm';
-                label.className = 'text-xs font-medium text-slate-400 mt-2';
-            }
-        });
-        
-        // Update content visibility
-        contents.forEach((content, index) => {
-            if (index === activeStep) {
-                content.classList.remove('hidden');
-            } else {
-                content.classList.add('hidden');
-            }
-        });
+            const url = new URL(window.location);
+            url.searchParams.set('method', method);
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newDetailsForm = doc.querySelector(`#${method}-details`);
+                    
+                    if (newDetailsForm) {
+                        const currentDetailsForm = document.querySelector(`#${method}-details`);
+                        if (currentDetailsForm) {
+                            currentDetailsForm.innerHTML = newDetailsForm.innerHTML;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating form:', error);
+                });
+        }
     }
     
     // Initiate STK Push
@@ -766,7 +791,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!phoneNumber.startsWith('254')) {
             if (phoneNumber.startsWith('0')) {
                 phoneNumber = '254' + phoneNumber.substring(1);
-            } else if (/^[7-9]\d+$/.test(phoneNumber)) {
+            } else if (/^[1,7-9]\d+$/.test(phoneNumber)) {
                 phoneNumber = '254' + phoneNumber;
             }
         }
@@ -902,12 +927,100 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
-    // Event listeners
+    // Update step indicators for the modern M-Pesa experience
+    function updateStepIndicators(step) {
+        // Update progress bar width
+        if (step === 0) {
+            progressBar.style.width = '0%';
+        } else if (step === 1) {
+            progressBar.style.width = '50%';
+        } else if (step === 2) {
+            progressBar.style.width = '100%';
+        }
+        
+        // Hide all content sections first
+        step1Content.classList.add('hidden');
+        step2Content.classList.add('hidden');
+        step3Content.classList.add('hidden');
+        
+        // Show current step content
+        if (step === 0) {
+            step1Content.classList.remove('hidden');
+        } else if (step === 1) {
+            step2Content.classList.remove('hidden');
+        } else if (step === 2) {
+            step3Content.classList.remove('hidden');
+        }
+        
+        // Update step indicator styles
+        // Step 1
+        if (step >= 0) {
+            step1.querySelector('div').classList.remove('border-slate-300', 'bg-white', 'text-slate-400');
+            step1.querySelector('div').classList.add('border-green-500', 'bg-green-500', 'text-white');
+            step1.querySelector('span').classList.remove('text-slate-400');
+            step1.querySelector('span').classList.add('text-green-600');
+        }
+        
+        // Step 2
+        if (step >= 1) {
+            step2.querySelector('div').classList.remove('border-slate-300', 'bg-white', 'text-slate-400');
+            step2.querySelector('div').classList.add('border-green-500', 'bg-green-500', 'text-white');
+            step2.querySelector('span').classList.remove('text-slate-400');
+            step2.querySelector('span').classList.add('text-green-600');
+        } else {
+            step2.querySelector('div').classList.add('border-slate-300', 'bg-white', 'text-slate-400');
+            step2.querySelector('div').classList.remove('border-green-500', 'bg-green-500', 'text-white');
+            step2.querySelector('span').classList.add('text-slate-400');
+            step2.querySelector('span').classList.remove('text-green-600');
+        }
+        
+        // Step 3
+        if (step >= 2) {
+            step3.querySelector('div').classList.remove('border-slate-300', 'bg-white', 'text-slate-400');
+            step3.querySelector('div').classList.add('border-green-500', 'bg-green-500', 'text-white');
+            step3.querySelector('span').classList.remove('text-slate-400');
+            step3.querySelector('span').classList.add('text-green-600');
+        } else {
+            step3.querySelector('div').classList.add('border-slate-300', 'bg-white', 'text-slate-400');
+            step3.querySelector('div').classList.remove('border-green-500', 'bg-green-500', 'text-white');
+            step3.querySelector('span').classList.add('text-slate-400');
+            step3.querySelector('span').classList.remove('text-green-600');
+        }
+    }
+    
+    // Event listeners for payment method selection
     methodRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            showPaymentDetails(this.value);
+            if (this.checked) {
+                showPaymentDetails(this.value);
+                updatePaymentDetailsForm(this.value);
+            }
         });
+        
+        // Also handle click events for the entire card
+        const card = radio.closest('.payment-method-card');
+        if (card) {
+            card.addEventListener('click', function() {
+                const input = this.querySelector('input[name="method"]');
+                if (input && !input.checked) {
+                    input.checked = true;
+                    showPaymentDetails(input.value);
+                    updatePaymentDetailsForm(input.value);
+                }
+            });
+        }
     });
+
+    // Initialize - show details for pre-selected method or hide all
+    const selectedMethod = document.querySelector('input[name="method"]:checked');
+    if (selectedMethod) {
+        showPaymentDetails(selectedMethod.value);
+    } else {
+        // Hide all payment details if no method is selected
+        document.querySelectorAll('.payment-method-details').forEach(el => {
+            el.classList.remove('active');
+        });
+    }
     
     if (stkPushButton) {
         stkPushButton.addEventListener('click', function() {
@@ -919,8 +1032,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            if (!/^[7-9][0-9]{8}$/.test(phoneNumber)) {
-                stkPushStatus.textContent = 'Please enter a valid phone number (e.g., 722123456)';
+            if (!/^[1,7-9][0-9]{8}$/.test(phoneNumber)) {
+                stkPushStatus.textContent = 'Please enter a valid phone number (e.g., 122123456 or 722123456)';
                 stkPushStatus.className = 'stk-status error';
                 return;
             }
@@ -946,8 +1059,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 formattedPhone = '254' + phoneNumber;
             }
             
-            if (!/^254[7-9][0-9]{8}$/.test(formattedPhone)) {
-                alert('Please enter a valid phone number (e.g., 0722123456 or 722123456)');
+            if (!/^254[1,7-9][0-9]{8}$/.test(formattedPhone)) {
+                alert('Please enter a valid phone number (e.g., 0122123456, 0722123456 or 122123456)');
                 return;
             }
             
@@ -961,11 +1074,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize
-    const selectedMethod = document.querySelector('input[name="method"]:checked');
-    if (selectedMethod) {
-        showPaymentDetails(selectedMethod.value);
-    }
 });
 </script>
 {% endblock %}

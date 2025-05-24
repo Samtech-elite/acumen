@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
    
 ]
-
+BASE_URL = 'https://acumenink.com'
 SITE_ID = 1
-
+PAYHERO_BASE_URL = "https://backend.payhero.co.ke/api/v2"
 STK_PUSH_API_USERNAME = os.environ.get("STK_PUSH_API_USERNAME", "2Pn8iMbGOXcoSxCj3LiM")
 STK_PUSH_API_PASSWORD = os.environ.get("STK_PUSH_API_PASSWORD", "9FjyxIXOs2PqQzjLFXHnbv7BgLuWt9QigD2tYnxR")
 PAYHERO_BASIC_AUTH = os.environ.get("PAYHERO_BASIC_AUTH", "Basic MlBuOGlNYkdPWGNvU3hDajNMaU06OUZqeXhJWE9zMlBxUXpqTEZYSG5idjdCZ0x1V3Q5UWlnRDJ0WW54Ug==")

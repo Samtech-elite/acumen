@@ -68,7 +68,7 @@ def initiate_stk_push_view(request, application_id):
             payment_method='mpesa_stk',
             phone_number=phone_number,
             merchant_reference=payhero_reference, 
-            internal_reference=external_reference 
+            internal_reference=application.reference_number 
         )
         
         return JsonResponse({'success': True, 'transaction_id': payhero_reference, 'message': 'STK push initiated.'})

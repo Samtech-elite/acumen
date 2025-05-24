@@ -3,6 +3,7 @@ import requests
 from django.conf import settings
 import base64
 from django.urls import reverse  # Import reverse
+from decimal import Decimal
 
 logger = logging.getLogger(__name__)
 payment_logger = logging.getLogger("payment")
@@ -10,7 +11,7 @@ payment_logger = logging.getLogger("payment")
 
 def initiate_stk_push(phone_number, amount, reference):
     """Initiates STK Push via PayHero API using Basic Auth."""
-
+    amount = round(Decimal(amount) * 130)
     if phone_number.startswith("+"):
         phone_number = phone_number[1:]
 

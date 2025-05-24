@@ -17,7 +17,7 @@ class Payment(models.Model):
         ('approved', _('Approved by Admin')),
         ('rejected', _('Rejected')),
     ]
-
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payments')
     application = models.OneToOneField(Application, on_delete=models.CASCADE, related_name='payment')
     method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES)
     reference_number = models.CharField(max_length=100, blank=True, null=True, help_text=_("Optional reference number for the payment"))
@@ -25,6 +25,17 @@ class Payment(models.Model):
     currency = models.CharField(max_length=10, default='USD', help_text=_("Currency code, e.g. USD, KES"))
     confirmation_proof = models.ImageField(upload_to='payment_confirmations/')
     confirmation_verified = models.BooleanField(default=False)
+    internal_reference = models.CharField(
+        max_length=100, 
+        unique=True, 
+        help_text=_("Unique internal reference for tracking this payment")
+    )
+    external_reference = models.CharField(
+        max_length=100, 
+        blank=True, 
+        null=True, 
+        help_text=_("External reference ID from payment gateway (if applicable)")
+    )
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
