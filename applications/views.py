@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegistrationForm, ApplicantProfileForm, ApplicationForm
+from .forms import ApplicationForm
 from .models import ApplicantProfile, Application
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404, render, redirect
-from .utils import send_application_email
+from .utils import send_application_email, send_application_confirmation_email
 from django.utils.timezone import now
 
 @login_required
@@ -24,7 +24,21 @@ def submit_application(request):
             application = form.save(commit=False)
             application.applicant = applicant_profile
             application.save()
-            messages.success(request, "Application submitted successfully!")
+            
+            # Send confirmation email with reference number
+            try:
+                send_application_confirmation_email(application)
+                # Log the email was sent
+                application.email_status = "sent"
+                application.email_last_sent_at = now()
+                application.save(update_fields=['email_status', 'email_last_sent_at'])
+            except Exception as e:
+                # Log the error but don't prevent the application from being submitted
+                print(f"Error sending confirmation email: {e}")
+                application.email_status = "failed"
+                application.save(update_fields=['email_status'])
+            
+            messages.success(request, "Application submitted successfully! Check your email for confirmation.")
             return redirect('thank_you')
     else:
         form = ApplicationForm()
@@ -40,6 +54,7 @@ def application_status(request):
         'application': application,
     })
 
+
 def thank_you(request):
     # After submission page with referral/share prompt
     return render(request, 'applications/thank_you.html')
@@ -51,7 +66,7 @@ def preview_email(request, pk):
     if app.status == "approved":
         return render(request, "emails/approved.html", {
             'user': app.applicant.user,
-            'payment_url': "https://acumenink.com/payment"
+            'payment_url': f"https://acumenink.com/payment/{app.id}/"
         })
     elif app.status == "rejected":
         return render(request, "emails/rejected.html", {
@@ -67,7 +82,7 @@ def resend_email_view(request, pk):
             user=app.applicant.user,
             status=app.status,
             reason=app.rejection_reason,
-            payment_url="https://acumenink.com/payment"
+            payment_url=f"https://acumenink.com/payment/{app.id}/",
         )
         app.email_status = "sent"
         app.email_last_sent_at = now()

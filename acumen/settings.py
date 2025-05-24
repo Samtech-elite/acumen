@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
     'django_countries',
     'users',
     'payment',
@@ -41,6 +42,14 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+STK_PUSH_API_USERNAME = os.environ.get("STK_PUSH_API_USERNAME", "2Pn8iMbGOXcoSxCj3LiM")
+STK_PUSH_API_PASSWORD = os.environ.get("STK_PUSH_API_PASSWORD", "9FjyxIXOs2PqQzjLFXHnbv7BgLuWt9QigD2tYnxR")
+PAYHERO_BASIC_AUTH = os.environ.get("PAYHERO_BASIC_AUTH", "Basic MlBuOGlNYkdPWGNvU3hDajNMaU06OUZqeXhJWE9zMlBxUXpqTEZYSG5idjdCZ0x1V3Q5UWlnRDJ0WW54Ug==")
+
+
+PAYHERO_CHANNEL_ID = 2134
+#PAYHERO_CHANNEL_ID = 2045
+PAYHERO_PAYMENT_ID = 2045
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -129,11 +138,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_FAILURE_VIEW = 'security.views.csrf_failure'
 # Email configuration for SMTP backend
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "info.paynix@gmail.com"
-EMAIL_HOST_PASSWORD = "iffw rdfi qykt llia"
-DEFAULT_FROM_EMAIL = "info.paynix@gmail.com"
-ADMIN_EMAIL = "info.paynix@gmail.com"
+EMAIL_HOST_USER = 'acumenink@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'ohxb npbc pcok hjkr'  # Replace with your email password
+
+ADMIN_EMAIL = 'acumenink@gmail.com'  
+DEFAULT_FROM_EMAIL = 'acumenink@gmail.com'  

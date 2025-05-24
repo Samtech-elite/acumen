@@ -81,20 +81,19 @@
                 <!-- Desktop menu -->
                 <div class="hidden sm:flex sm:items-center sm:space-x-4">
                     <!-- Add your navigation links here -->
-                    <a href="/" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition duration-150">Home</a>
-                    <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition duration-150">Services</a>
-                    <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition duration-150">About</a>
-                    <a href="#" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition duration-150">Contact</a>
+                    <a href="{% url 'dashboard' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition duration-150">Dashboard</a>
+
+                    <a href="{% url 'about' %}" class="hover:text-white transition duration-150">About</a>
+                    <a href="{% url 'testimonials' %}" class="hover:text-white transition duration-150">Testimonials</a>
                 </div>
             </div>
             
             <!-- Mobile menu, show/hide based on menu state -->
             <div id="mobile-menu" class="hidden sm:hidden pb-3">
                 <div class="space-y-1 px-2 pt-2 pb-3">
-                    <a href="/" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700">Home</a>
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700">Services</a>
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700">About</a>
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700">Contact</a>
+                    <a href="{% url 'dashboard' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700">Dashboard</a>
+                    <a href="{% url 'about' %}" class="hover:text-white transition duration-150">About</a>
+                    <a href="{% url 'testimonials' %}" class="hover:text-white transition duration-150">Testimonials</a>
                 </div>
             </div>
         </div>
@@ -214,24 +213,22 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Acumen Ink</h3>
-                    <p class="text-sm text-gray-400">Providing quality services since 2020.</p>
+                    <p class="text-sm text-gray-400">Providing quality services since 2010.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition duration-150">Home</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-150">Services</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-150">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-150">Contact</a></li>
+                        <li><a href="/" class="hover:text-white transition duration-150">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="hover:text-white transition duration-150">About Us</a></li>
+                        <li><a href="{% url 'testimonials' %}" class="hover:text-white transition duration-150">Testimonials</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
                     <address class="text-sm text-gray-400 not-italic">
-                        <p>123 Main Street</p>
-                        <p>City, State 12345</p>
-                        <p class="mt-2">Email: info@acumenink.com</p>
-                        <p>Phone: (123) 456-7890</p>
+                        <p>1875 Broadway Avenue, Suite 1200</p>
+                        <p>New York, NY 10023</p>
+                        <p class="mt-2">Email: <a href="mailto:info@acumenink.com" class="hover:text-white transition duration-150">info@acumenink.com</a></p>
                     </address>
                 </div>
             </div>

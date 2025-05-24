@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - AcumenInk{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #f5a623;
+        --accent-color: #e91e63;
+        --light-color: #f9f9f9;
+        --dark-color: #333333;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--light-color);
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .about-section {
+        padding: 80px 0;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .about-header h1 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-section {
+        max-width: 800px;
+        margin: 2rem auto;
+    }
+
+    .faq-header {
+        font-size: 2rem;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .faq-container {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .faq-item {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-question {
+        background: var(--light-color);
+        padding: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .faq-question::after {
+        content: '+';
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .faq-item.active .faq-question::after {
+        content: '-';
+    }
+
+    .faq-answer {
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 1.25rem;
+        max-height: 500px;
+    }
+
+    .faq-answer p {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+        color: var(--dark-color);
+    }
+
+    @media (max-width: 768px) {
+        .about-section {
+            padding: 40px 0;
+        }
+
+        .about-header h1 {
+            font-size: 2rem;
+        }
+
+        .faq-header {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+
+<div class="about-section">
+    <div class="container">
+        <div class="faq-section">
+            <h2 class="faq-header">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">What is AcumenInk?</div>
+                    <div class="faq-answer">
+                        <p>AcumenInk is an online platform connecting talented writers with clients who need high-quality writing services. We offer a wide range of writing opportunities across various fields and industries.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Who can use AcumenInk?</div>
+                    <div class="faq-answer">
+                        <p>AcumenInk is designed for both writers and clients. Writers of all experience levels can find job opportunities, while businesses and individuals can find skilled writers for their projects.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What types of writing jobs are available?</div>
+                    <div class="faq-answer">
+                        <p>We offer a wide variety of writing jobs, including content writing, copywriting, technical writing, creative writing, academic writing, SEO writing, grant writing, and more. Check our job listings for current opportunities.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I get started as a writer on AcumenInk?</div>
+                    <div class="faq-answer">
+                        <p>To get started, create a profile showcasing your skills and experience. Browse available jobs, submit proposals, and start building your portfolio and client base on our platform.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How does AcumenInk ensure quality for clients?</div>
+                    <div class="faq-answer">
+                        <p>We have a rigorous vetting process for writers and encourage clients to review writer profiles, samples, and ratings. We also offer dispute resolution services to ensure client satisfaction.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What fees does AcumenInk charge?</div>
+                    <div class="faq-answer">
+                        <p>AcumenInk is free to join for both writers and clients. We take a small percentage of each completed job to maintain and improve our platform. Exact fee structures are available in our terms of service.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How does payment work?</div>
+                    <div class="faq-answer">
+                        <p>We offer secure payment processing through our platform. Clients fund projects upfront, and writers are paid upon successful completion of the work. We also offer milestone payments for longer projects.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I work on AcumenInk part-time or full-time?</div>
+                    <div class="faq-answer">
+                        <p>AcumenInk offers flexibility for writers. You can choose to work part-time or full-time, depending on your availability and the number of projects you take on.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How does AcumenInk support writers' professional growth?</div>
+                    <div class="faq-answer">
+                        <p>We offer resources, tutorials, and community forums to help writers improve their skills. Our platform also allows writers to build a strong portfolio and client base, supporting long-term career growth.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Is AcumenInk available internationally?</div>
+                    <div class="faq-answer">
+                        <p>Yes, AcumenInk is a global platform. We connect writers and clients from around the world, facilitating international collaboration and opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+        const item = question.parentNode;
+        const isActive = item.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(faqItem => {
+            faqItem.classList.remove('active');
+        });
+        
+        // If the clicked item wasn't active, open it
+        if (!isActive) {
+            item.classList.add('active');
+        }
+    });
+});
+</script>
+{% endblock %}

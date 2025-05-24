@@ -1,0 +1,26 @@
+Hello,
+
+{{ referrer_name }} thinks you'd make an excellent writer at Acumen Ink and has personally invited you to join our community of talented writers.
+
+"Join me at Acumen Ink where writers like us can showcase our talents and earn from our passion!" - {{ referrer_name }}
+
+Why Join Acumen Ink?
+✓ Work with global clients on interesting writing projects
+✓ Flexible schedule - work from anywhere, anytime
+✓ Competitive pay for quality content
+✓ Join a community of professional writers
+✓ Continuous learning and growth opportunities
+
+Getting started is easy! Just visit the link below to create your account:
+
+{{ referral_link }}
+
+We're excited to see your application!
+
+Best regards,
+The Acumen Ink Team
+
+---
+This invitation was sent to you because {{ referrer_name }} invited you to Acumen Ink.
+© 2025 Acumen Ink. All rights reserved.
+1875 Broadway Avenue, Suite 1200 ,New York, NY 10023

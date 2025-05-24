@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Received - Acumen Ink</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .email-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .email-header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .email-body {
+            padding: 30px;
+            background-color: white;
+        }
+        .email-footer {
+            background-color: #f5f5f5;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .highlight {
+            background-color: #f0f7ff;
+            border-left: 4px solid #1a73e8;
+            padding: 10px 15px;
+            margin: 20px 0;
+        }
+        .reference-number {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .next-steps {
+            margin: 25px 0;
+        }
+        .next-step-item {
+            margin-bottom: 15px;
+        }
+        .social-links {
+            margin-top: 15px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 8px;
+            color: #666;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Application Received</h1>
+        </div>
+        
+        <div class="email-body">
+            <p>Hello {{ application.applicant.user.first_name }},</p>
+            
+            <p>Thank you for submitting your application to become a writer at Acumen Ink. We're excited to review your profile and writing samples!</p>
+            
+            <div class="highlight">
+                <p>Your application reference number is: <span class="reference-number">{{ application.reference_number }}</span></p>
+                <p>Please keep this number for your records and include it in any communications with us about your application.</p>
+            </div>
+            
+            <h2>What Happens Next?</h2>
+            
+            <div class="next-steps">
+                <div class="next-step-item">
+                    <strong>1. Application Review</strong>
+                    <p>Our team will review your application and writing samples within 5-7 business days.</p>
+                </div>
+                
+                <div class="next-step-item">
+                    <strong>2. Status Updates</strong>
+                    <p>You'll receive email notifications when there are updates to your application status.</p>
+                </div>
+                
+                <div class="next-step-item">
+                    <strong>3. Check Your Status</strong>
+                    <p>You can check your application status anytime by logging into your account.</p>
+                </div>
+            </div>
+            
+            <p>In the meantime, know someone else who'd make a great writer? Invite them to apply and earn referral bonuses when they join our platform.</p>
+            
+            <p>Best regards,<br>The Acumen Ink Team</p>
+        </div>
+        
+        <div class="email-footer">
+            <p>© 2025 Acumen Ink. All rights reserved.</p>
+            <p>If you have any questions, please contact <a href="mailto:support@acumenink.com">support@acumenink.com</a></p>
+            
+            <div class="social-links">
+                <a href="https://twitter.com/acumenink">Twitter</a> |
+                <a href="https://facebook.com/acumenink">Facebook</a> |
+                <a href="https://linkedin.com/company/acumenink">LinkedIn</a> |
+                <a href="https://instagram.com/acumenink">Instagram</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+Hello {{ application.applicant.user.first_name }},
+
+Thank you for submitting your application to become a writer at Acumen Ink. We're excited to review your profile and writing samples!
+
+Your application reference number is: {{ application.reference_number }}
+
+Please keep this number for your records and include it in any communications with us about your application.
+
+What Happens Next?
+
+1. Application Review
+   Our team will review your application and writing samples within 5-7 business days.
+
+2. Status Updates
+   You'll receive email notifications when there are updates to your application status.
+
+3. Check Your Status
+   You can check your application status anytime by logging into your account.
+
+In the meantime, know someone else who'd make a great writer? Invite them to apply and earn referral bonuses when they join our platform.
+
+Best regards,
+The Acumen Ink Team
+
+---
+© 2025 Acumen Ink. All rights reserved.
+If you have any questions, please contact support@acumenink.com

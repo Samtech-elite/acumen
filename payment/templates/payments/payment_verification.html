@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Verifying Payment{% endblock %}
+
+{% block extra_head %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Start verification after page loads
+    setTimeout(verifyPayment, 1500); // Short delay for loading animation to be visible
+    
+    function verifyPayment() {
+        fetch('{% url "verify_payment_ajax" payment.id %}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('success-message').textContent = data.message;
+                    document.getElementById('verification-success').style.display = 'block';
+                    document.getElementById('verification-loading').style.display = 'none';
+                    
+                    // Redirect after showing success message
+                    setTimeout(function() {
+                        window.location.href = data.redirect;
+                    }, 2000);
+                } else {
+                    document.getElementById('error-message').textContent = data.error;
+                    document.getElementById('verification-error').style.display = 'block';
+                    document.getElementById('verification-loading').style.display = 'none';
+                    
+                    if (data.redirect) {
+                        document.getElementById('retry-button').href = data.redirect;
+                        document.getElementById('retry-button').style.display = 'inline-block';
+                    }
+                }
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = 'An unexpected error occurred. Please try again.';
+                document.getElementById('verification-error').style.display = 'block';
+                document.getElementById('verification-loading').style.display = 'none';
+            });
+    }
+});
+</script>
+<style>
+.verification-container {
+    text-align: center;
+    padding: 2rem;
+}
+.loading-spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.verification-success, .verification-error {
+    display: none;
+    margin-top: 20px;
+}
+.verification-success {
+    color: green;
+}
+.verification-error {
+    color: red;
+}
+.support-section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+.support-link {
+    font-weight: bold;
+    color: #3498db;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="verification-container">
+    <h2>Verifying Your Payment</h2>
+    
+    <div id="verification-loading">
+        <p>Please wait while we verify your payment confirmation...</p>
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <div id="verification-success" class="verification-success">
+        <h3>Verification Successful!</h3>
+        <p id="success-message"></p>
+    </div>
+    
+    <div id="verification-error" class="verification-error">
+        <h3>Verification Failed</h3>
+        <p id="error-message">Payment not found or verification failed.</p>
+        <a id="retry-button" href="#" class="btn" style="display:none;">Try Again</a>
+    </div>
+    
+    <div class="support-section">
+        <p>If you continue experiencing issues, please <a href="mailto:{{ support_email }}" class="support-link">Contact Support</a></p>
+    </div>
+</div>
+{% endblock %}

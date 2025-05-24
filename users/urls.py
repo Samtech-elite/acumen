@@ -5,6 +5,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     # Registration and account verification
     path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('testimonials/', views.testimonials, name='testimonials'),
     path('register/', views.register, name='register'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('activation_sent/', views.activation_sent, name='activation_sent'),

@@ -74,7 +74,6 @@ class ApplicantProfile(models.Model):
         related_name='user_profile'
     )
     country = CountryField(blank_label='(Select country)')
-    education = models.TextField(blank=True)
     education_level = models.CharField(
         max_length=20,
         choices=EDUCATION_CHOICES,

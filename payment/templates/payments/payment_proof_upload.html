@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Upload Payment Confirmation{% endblock %}
+
+{% block content %}
+<div class="payment-proof-container">
+    <h2>Upload Payment Confirmation</h2>
+    
+    <div class="payment-details">
+        <p>Application: {{ object.application.reference_number }}</p>
+        <p>Payment Method: {{ object.get_method_display }}</p>
+        <p>Amount: {{ object.amount }} {{ object.currency }}</p>
+    </div>
+    
+    <div class="upload-instructions">
+        <h3>Upload Instructions</h3>
+        <p>Please upload a screenshot or photo of your payment confirmation:</p>
+        <ul>
+            <li>For M-Pesa: Upload the M-Pesa confirmation message</li>
+            <li>For Bank Transfer: Upload the bank transfer receipt</li>
+            <li>For PayPal: Upload the PayPal transaction confirmation</li>
+        </ul>
+        <p>Accepted file formats: JPG, PNG, PDF (Maximum file size: 5MB)</p>
+    </div>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.non_field_errors }}
+        
+        <div class="form-group">
+            {{ form.confirmation_proof.errors }}
+            <label for="{{ form.confirmation_proof.id_for_label }}">Payment Confirmation:</label>
+            {{ form.confirmation_proof }}
+            {% if form.confirmation_proof.help_text %}
+                <small class="help-text">{{ form.confirmation_proof.help_text }}</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn primary">Submit Confirmation</button>
+        </div>
+    </form>
+    
+    <div class="support-section">
+        <p>Having trouble uploading your confirmation? <a href="mailto:support@acumenink.com" class="support-link">Contact Support</a></p>
+    </div>
+</div>
+{% endblock %}

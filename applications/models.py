@@ -1,12 +1,33 @@
 from django.db import models
 from django.conf import settings
 from users.models import ApplicantProfile
+import random
+import string
+
+def generate_reference_number():
+    """
+    Generate a unique 6-character reference number with a mixture of 
+    capital letters and numbers
+    """
+    characters = string.ascii_uppercase + string.digits
+    while True:
+        # Generate a 6-character reference number
+        reference = ''.join(random.choices(characters, k=6))
+        
+        # Check if this reference number already exists
+        if not Application.objects.filter(reference_number=reference).exists():
+            return reference
+
+
 class Application(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending Review'),
+        ('in_review', 'In Review'),
         ('approved', 'Approved'),
+        ('interview', 'Interview Scheduled'),
         ('rejected', 'Rejected'),
     ]
+
 
     EMAIL_STATUS_CHOICES = [
         ('none', 'None'),
@@ -20,7 +41,13 @@ class Application(models.Model):
         ('search_engine', 'Search Engine'),
         ('other', 'Other'),
     ]
-
+    
+    reference_number = models.CharField(
+        max_length=100, 
+        unique=True, 
+        default=generate_reference_number,
+        help_text="Unique reference number for this application"
+    )
     applicant = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='resumes/')
     writing_sample = models.FileField(upload_to='writing_samples/')

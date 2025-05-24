@@ -83,15 +83,13 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = ApplicantProfile
-        fields = ['country', 'education', 'education_level', 'expertise_areas', 'portfolio_link', 'portfolio_file']
+        fields = ['country', 'education_level', 'expertise_areas', 'portfolio_link', 'portfolio_file']
         widgets = {
             'country': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500'
             }),
-            'education': forms.Textarea(attrs={
-                'class': 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500',
-                'rows': 3,
-                'placeholder': 'Additional details about your education'
+            'education_level': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500'
             }),
             'expertise_areas': forms.Textarea(attrs={
                 'class': 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500',

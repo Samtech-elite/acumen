@@ -1,0 +1,29 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+
+{% block result_list %}
+    {{ block.super }}
+    <style>
+        .email-status-sent {
+            color: green;
+        }
+        .email-status-failed {
+            color: red;
+        }
+        .email-status-none {
+            color: gray;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="module" style="margin-top: 20px;">
+        <h2>Applications Dashboard</h2>
+        <div class="dashboard-stats">
+            <p>Pending applications: {{ pending_count }}</p>
+            <p>Approved applications: {{ approved_count }}</p>
+            <p>Rejected applications: {{ rejected_count }}</p>
+        </div>
+    </div>
+{% endblock %}

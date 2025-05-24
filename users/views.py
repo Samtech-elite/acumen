@@ -27,7 +27,10 @@ from referrals.models import ReferralCode
 from django.contrib.auth import logout
 def home(request):
     return render(request,'home.html')
-
+def about(request):
+    return render(request, 'about.html')
+def testimonials(request):
+    return render(request, 'testimonials.html')
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)

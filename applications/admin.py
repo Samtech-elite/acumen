@@ -13,6 +13,17 @@ from .utils import send_application_email
 from .forms import RejectionReasonForm
 
 
+class ApplicationLogInline(admin.TabularInline):
+    model = ApplicationLog
+    extra = 0
+    readonly_fields = ['action', 'admin', 'notes', 'timestamp']
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = (
@@ -51,6 +62,8 @@ class ApplicationAdmin(admin.ModelAdmin):
             'fields': ('submitted_at',)
         }),
     )
+
+    inlines = [ApplicationLogInline]
 
     def get_urls(self):
         urls = super().get_urls()
@@ -362,14 +375,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 @admin.register(ApplicationLog)
 class ApplicationLogAdmin(admin.ModelAdmin):
-    list_display = ('application', 'action', 'admin', 'timestamp')
-    list_filter = ('action', 'admin', 'timestamp')
-    search_fields = ('application__applicant__user__email', 'action', 'notes')
-    readonly_fields = ('application', 'action', 'admin', 'timestamp', 'notes')
-    date_hierarchy = 'timestamp'
-    
-    def has_add_permission(self, request):
-        return False
-    
-    def has_change_permission(self, request, obj=None):
-        return False
+    list_display = ['application', 'action', 'admin', 'timestamp']
+    list_filter = ['action', 'timestamp']
+    search_fields = ['application__applicant__user__email', 'notes']
+    readonly_fields = ['timestamp']

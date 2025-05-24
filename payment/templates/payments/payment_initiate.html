@@ -1,0 +1,971 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Make Payment{% endblock %}
+
+{% block extra_head %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                animation: {
+                    'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'bounce-slow': 'bounce 2s infinite',
+                    'spin-slow': 'spin 2s linear infinite',
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <!-- Classic Payment Interface -->
+    <div id="classic-payment" class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 mb-8 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Payment Gateway</h1>
+                        <p class="text-blue-100 mt-1">Secure payment processing</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
+                        <span class="text-white font-medium text-sm">
+                            <i class="fas fa-shield-alt mr-2"></i>SSL Secured
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Summary -->
+            <div class="p-8">
+                <div class="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 border border-slate-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-file-invoice text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800">Application Payment</h3>
+                                <p class="text-slate-600">{{ application.reference_number }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-800">{{ payment.amount }}</p>
+                            <p class="text-slate-600">{{ payment.currency }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <form method="post" enctype="multipart/form-data" class="space-y-0">
+                {% csrf_token %}
+                <input type="hidden" name="current_method" value="{{ payment.method }}">
+                
+                <!-- Payment Method Selection -->
+                <div class="p-8 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-slate-800 mb-6">Select Payment Method</h2>
+                    
+                    {% if form.payment_form.non_field_errors %}
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                            <div class="flex">
+                                <i class="fas fa-exclamation-triangle text-red-400 mt-0.5 mr-3"></i>
+                                <div class="text-red-700">{{ form.payment_form.non_field_errors }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- PayPal Option -->
+                        <label class="payment-method-card group cursor-pointer">
+                            <input type="radio" name="method" value="paypal" class="sr-only" 
+                                   {% if payment.method == 'paypal' %}checked{% endif %}>
+                            <div class="border-2 border-slate-200 rounded-xl p-6 text-center transition-all duration-200 group-hover:border-blue-300 group-hover:shadow-md">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200">
+                                    <i class="fab fa-paypal text-blue-600 text-xl"></i>
+                                </div>
+                                <h3 class="font-medium text-slate-800">PayPal</h3>
+                                <p class="text-sm text-slate-600 mt-1">Pay with PayPal</p>
+                            </div>
+                        </label>
+
+                        <!-- M-Pesa Option -->
+                        <label class="payment-method-card group cursor-pointer">
+                            <input type="radio" name="method" value="mpesa" class="sr-only"
+                                   {% if payment.method == 'mpesa' %}checked{% endif %}>
+                            <div class="border-2 border-slate-200 rounded-xl p-6 text-center transition-all duration-200 group-hover:border-green-300 group-hover:shadow-md">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-green-200">
+                                    <i class="fas fa-mobile-alt text-green-600 text-xl"></i>
+                                </div>
+                                <h3 class="font-medium text-slate-800">M-Pesa</h3>
+                                <p class="text-sm text-slate-600 mt-1">Mobile Money</p>
+                            </div>
+                        </label>
+
+                        <!-- Bank Transfer Option -->
+                        <label class="payment-method-card group cursor-pointer">
+                            <input type="radio" name="method" value="bank_transfer" class="sr-only"
+                                   {% if payment.method == 'bank_transfer' %}checked{% endif %}>
+                            <div class="border-2 border-slate-200 rounded-xl p-6 text-center transition-all duration-200 group-hover:border-purple-300 group-hover:shadow-md">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-200">
+                                    <i class="fas fa-university text-purple-600 text-xl"></i>
+                                </div>
+                                <h3 class="font-medium text-slate-800">Bank Transfer</h3>
+                                <p class="text-sm text-slate-600 mt-1">Wire Transfer</p>
+                            </div>
+                        </label>
+
+                        <!-- Card Option -->
+                        <label class="payment-method-card group cursor-pointer">
+                            <input type="radio" name="method" value="card" class="sr-only"
+                                   {% if payment.method == 'card' %}checked{% endif %}>
+                            <div class="border-2 border-slate-200 rounded-xl p-6 text-center transition-all duration-200 group-hover:border-orange-300 group-hover:shadow-md">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-200">
+                                    <i class="fas fa-credit-card text-orange-600 text-xl"></i>
+                                </div>
+                                <h3 class="font-medium text-slate-800">Credit Card</h3>
+                                <p class="text-sm text-slate-600 mt-1">Visa, Mastercard</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Payment Details Sections -->
+                <div class="payment-details-container">
+                    <!-- PayPal Details -->
+                    <div id="paypal-details" class="payment-method-details p-8 border-b border-slate-200">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fab fa-paypal text-blue-600"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-slate-800">PayPal Payment</h3>
+                            </div>
+                            
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                                <h4 class="font-medium text-blue-800 mb-3">Payment Instructions</h4>
+                                <div class="space-y-2 text-blue-700">
+                                    {% if payment.paypal_details %}
+                                        <p>Send payment to: <span class="font-semibold">{{ payment.paypal_details.company_paypal_email }}</span></p>
+                                        <p>Business Name: <span class="font-semibold">{{ payment.paypal_details.company_paypal_business_name }}</span></p>
+                                    {% else %}
+                                        <p>Send payment to: <span class="font-semibold">payments@acumenink.com</span></p>
+                                        <p>Business Name: <span class="font-semibold">Acumen Inc</span></p>
+                                    {% endif %}
+                                    <p>Reference: <span class="font-semibold">{{ application.reference_number }}</span></p>
+                                </div>
+                            </div>
+
+                            {% if form.details_form and payment.method == 'paypal' %}
+                                <div class="space-y-4">
+                                    {{ form.details_form.as_p }}
+                                </div>
+                            {% endif %}
+
+                            {% if form.payment_form.method.value == 'paypal' or form.details_form and payment.method == 'paypal' %}
+                                <div class="space-y-2">
+                                    <label for="id_email" class="block text-sm font-medium text-slate-700">PayPal Email</label>
+                                    <input type="email" name="email" id="id_email" 
+                                           class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                           placeholder="your.email@example.com" required
+                                           {% if form.details_form.instance.email %}value="{{ form.details_form.instance.email }}"{% endif %}>
+                                    <p class="text-sm text-slate-600">Enter the email address associated with your PayPal account</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- M-Pesa Details -->
+                    <div id="mpesa-details" class="payment-method-details p-8 border-b border-slate-200">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-mobile-alt text-green-600"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-slate-800">M-Pesa Payment</h3>
+                            </div>
+
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+                                <h4 class="font-medium text-green-800 mb-3">Payment Instructions</h4>
+                                <div class="space-y-2 text-green-700">
+                                    {% if payment.mpesa_details %}
+                                        <p>Paybill Number: <span class="font-semibold">{{ payment.mpesa_details.company_mpesa_paybill }}</span></p>
+                                        {% if payment.mpesa_details.company_mpesa_account %}
+                                            <p>Account Number: <span class="font-semibold">{{ payment.mpesa_details.company_mpesa_account }}</span></p>
+                                        {% else %}
+                                            <p>Account Number: <span class="font-semibold">{{ application.reference_number }}</span></p>
+                                        {% endif %}
+                                    {% else %}
+                                        <p>Paybill Number: <span class="font-semibold">123456</span></p>
+                                        <p>Account Number: <span class="font-semibold">{{ application.reference_number }}</span></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- STK Push Section -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6 mb-6">
+                                <h4 class="font-medium text-green-800 mb-4 flex items-center">
+                                    <i class="fas fa-zap text-green-600 mr-2"></i>
+                                    Instant Payment (STK Push)
+                                </h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="mpesa-phone" class="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
+                                        <div class="flex">
+                                            <span class="inline-flex items-center px-4 py-3 border border-r-0 border-slate-300 bg-slate-50 text-slate-600 text-sm rounded-l-lg font-medium">
+                                                +254
+                                            </span>
+                                            <input type="tel" id="mpesa-phone" 
+                                                   class="flex-1 px-4 py-3 border border-slate-300 rounded-r-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                                                   placeholder="722123456" pattern="[7-9][0-9]{8}"
+                                                   {% if form.details_form.instance.phone_number %}
+                                                       value="{{ form.details_form.instance.phone_number|slice:"3:" }}"
+                                                   {% endif %}>
+                                        </div>
+                                        <p class="text-sm text-slate-600 mt-1">Enter your M-Pesa registered phone number</p>
+                                    </div>
+                                    
+                                    <button type="button" id="stk-push-button" 
+                                            class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-200 flex items-center justify-center space-x-2">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>Send Payment Request</span>
+                                    </button>
+                                    
+                                    <div id="stk-push-status" class="hidden"></div>
+                                </div>
+                            </div>
+
+                            <!-- Manual Entry -->
+                            <div class="border-t border-slate-200 pt-6">
+                                <h4 class="font-medium text-slate-800 mb-4">Manual Payment Details</h4>
+                                {% if form.details_form and payment.method == 'mpesa' %}
+                                    <div class="space-y-4">
+                                        {{ form.details_form.as_p }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Transfer Details -->
+                    <div id="bank_transfer-details" class="payment-method-details p-8 border-b border-slate-200">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-university text-purple-600"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-slate-800">Bank Transfer</h3>
+                            </div>
+
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-6">
+                                <h4 class="font-medium text-purple-800 mb-4">Bank Details</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-purple-700">
+                                    {% if payment.bank_transfer_details %}
+                                        <div>
+                                            <p class="text-sm text-purple-600">Bank Name</p>
+                                            <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_name }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">Account Name</p>
+                                            <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_account_name }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">Account Number</p>
+                                            <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_account_number }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">SWIFT/BIC</p>
+                                            <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_swift_code }}</p>
+                                        </div>
+                                        {% if payment.bank_transfer_details.company_bank_routing_number %}
+                                            <div>
+                                                <p class="text-sm text-purple-600">Routing Code</p>
+                                                <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_routing_number }}</p>
+                                            </div>
+                                        {% endif %}
+                                        {% if payment.bank_transfer_details.company_bank_iban %}
+                                            <div>
+                                                <p class="text-sm text-purple-600">IBAN</p>
+                                                <p class="font-semibold">{{ payment.bank_transfer_details.company_bank_iban }}</p>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div>
+                                            <p class="text-sm text-purple-600">Bank Name</p>
+                                            <p class="font-semibold">International Bank</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">Account Name</p>
+                                            <p class="font-semibold">Acumen Inc.</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">Account Number</p>
+                                            <p class="font-semibold">123456789</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600">SWIFT/BIC</p>
+                                            <p class="font-semibold">ABCDEF12</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-purple-200">
+                                    <p class="text-sm text-purple-600">Reference</p>
+                                    <p class="font-semibold text-purple-800">{{ application.reference_number }}</p>
+                                </div>
+                            </div>
+
+                            {% if form.details_form and payment.method == 'bank_transfer' %}
+                                <div class="space-y-4">
+                                    {{ form.details_form.as_p }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Card Details -->
+                    <div id="card-details" class="payment-method-details p-8">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center mb-6">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-credit-card text-orange-600"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-slate-800">Credit Card Payment</h3>
+                            </div>
+
+                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-6">
+                                <h4 class="font-medium text-orange-800 mb-3">Secure Payment Processing</h4>
+                                <div class="space-y-2 text-orange-700">
+                                    {% if payment.card_details and payment.card_details.company_card_checkout_url %}
+                                        <p>Payment processor: <span class="font-semibold">{{ payment.card_details.company_card_gateway }}</span></p>
+                                        <p>Statement descriptor: <span class="font-semibold">{{ payment.card_details.company_card_business_name }}</span></p>
+                                    {% else %}
+                                        <p>You'll be redirected to our secure payment processor</p>
+                                    {% endif %}
+                                    <p class="text-sm">Your card information is encrypted and secure</p>
+                                </div>
+                            </div>
+
+                            {% if form.details_form and payment.method == 'card' %}
+                                <div class="space-y-4">
+                                    {{ form.details_form.as_p }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="p-8 bg-slate-50 border-t border-slate-200">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>Your payment is protected by SSL encryption</span>
+                        </div>
+                        <button type="submit" name="action" value="proceed_to_confirmation"
+                                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-8 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2">
+                            <span>Proceed to Confirmation</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="mt-8 bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+            <h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center">
+                <i class="fas fa-info-circle text-blue-500 mr-3"></i>
+                Important Information
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-hashtag text-blue-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-slate-800">Reference Number</h4>
+                        <p class="text-sm text-slate-600 mt-1">Always include your application reference number in payment notes</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-clock text-green-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-slate-800">Processing Time</h4>
+                        <p class="text-sm text-slate-600 mt-1">Payments are processed within 1-2 business days</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="fas fa-headset text-purple-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-slate-800">Need Help?</h4>
+                        <p class="text-sm text-slate-600 mt-1">
+                            <a href="mailto:{{ support_email }}" class="text-blue-600 hover:text-blue-700 transition-colors">Contact our support team</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modern M-Pesa Experience -->
+    <div id="modern-mpesa-experience" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Payment Card -->
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-green-600 to-emerald-600 p-6 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10"></div>
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-white/10 rounded-full"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt text-white"></i>
+                                </div>
+                                <h2 class="text-xl font-bold text-white">M-Pesa Payment</h2>
+                            </div>
+                            <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-medium text-white">Secure</span>
+                        </div>
+                        <p class="text-green-100 text-sm">Complete your mobile money transaction</p>
+                    </div>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="p-6 border-b border-slate-200">
+                    <div class="flex items-center justify-between relative">
+                        <div class="absolute top-5 left-8 right-8 h-0.5 bg-slate-200">
+                            <div id="progress-bar" class="h-full bg-green-500 transition-all duration-500 w-0"></div>
+                        </div>
+                        
+                        <div id="step-1" class="flex flex-col items-center z-10">
+                            <div class="w-10 h-10 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center text-white font-medium text-sm">1</div>
+                            <span class="text-xs font-medium text-green-600 mt-2">Enter Details</span>
+                        </div>
+                        
+                        <div id="step-2" class="flex flex-col items-center z-10">
+                            <div class="w-10 h-10 rounded-full border-2 border-slate-300 bg-white flex items-center justify-center text-slate-400 font-medium text-sm">2</div>
+                            <span class="text-xs font-medium text-slate-400 mt-2">Confirm Payment</span>
+                        </div>
+                        
+                        <div id="step-3" class="flex flex-col items-center z-10">
+                            <div class="w-10 h-10 rounded-full border-2 border-slate-300 bg-white flex items-center justify-center text-slate-400 font-medium text-sm">3</div>
+                            <span class="text-xs font-medium text-slate-400 mt-2">Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Enter Details -->
+                <div id="modern-step-1-content" class="p-6">
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 mb-6 border border-green-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-file-invoice text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-slate-800">{{ application.reference_number }}</h3>
+                                    <p class="text-sm text-slate-600">Application Payment</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold text-slate-800">{{ payment.amount }}</p>
+                                <p class="text-sm text-slate-600">{{ payment.currency }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="modern-payment-form" class="space-y-4">
+                        {% csrf_token %}
+                        <div>
+                            <label for="modern-phone-number" class="block text-sm font-medium text-slate-700 mb-2">M-Pesa Phone Number</label>
+                            <div class="flex">
+                                <span class="inline-flex items-center px-4 py-3 border border-r-0 border-slate-300 bg-slate-50 text-slate-600 text-sm rounded-l-lg font-medium">+254</span>
+                                <input type="text" id="modern-phone-number" name="phone_number" placeholder="722123456"
+                                       class="flex-1 px-4 py-3 border border-slate-300 rounded-r-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Enter your M-Pesa registered phone number</p>
+                        </div>
+
+                        <button type="button" id="modern-confirm-payment-btn"
+                                class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-200 flex items-center justify-center space-x-2">
+                            <i class="fas fa-lock"></i>
+                            <span>Request M-Pesa Payment</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Confirm on Phone -->
+                <div id="modern-step-2-content" class="p-6 hidden">
+                    <div class="text-center space-y-6">
+                        <div class="relative inline-block">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-mobile-alt text-2xl text-green-600"></i>
+                            </div>
+                            <div class="absolute -top-1 -right-1">
+                                <span class="flex h-4 w-4">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Payment Request Sent</h3>
+                            <p class="text-slate-600 mt-2">Check your phone and enter your M-Pesa PIN to complete the transaction</p>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-xl p-4 border border-green-200">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-600">Phone</span>
+                                    <span id="modern-display-phone" class="font-medium text-slate-800">+254XXXXXXX</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-600">Amount</span>
+                                    <span class="font-medium text-slate-800">{{ payment.amount }}</span>
+                                </div>
+                                <div class="w-full bg-green-200 rounded-full h-2 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="modern-cancel-payment-btn"
+                                class="inline-flex items-center px-4 py-2 border border-slate-300 text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                            <i class="fas fa-times mr-2"></i>
+                            Cancel Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Complete -->
+                <div id="modern-step-3-content" class="p-6 hidden">
+                    <div class="text-center space-y-6">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-check text-2xl text-green-500"></i>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Payment Successful!</h3>
+                            <p class="text-slate-600 mt-2">Your payment has been processed successfully</p>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-xl p-4 border border-green-200">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-600">Status</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">Complete</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-slate-600">Redirecting in</span>
+                                    <span id="modern-countdown" class="font-medium text-slate-800">3 seconds...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Footer -->
+                <div class="bg-slate-50 p-4 border-t border-slate-200">
+                    <div class="flex items-center justify-center space-x-2">
+                        <i class="fas fa-shield-alt text-green-500"></i>
+                        <span class="text-sm font-medium text-slate-700">Secured by M-Pesa</span>
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div id="processing-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl">
+            <div class="w-16 h-16 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+            <p id="processing-text" class="text-slate-800 font-medium text-lg mb-2">Processing your payment...</p>
+            <p class="text-slate-600 text-sm">Please don't close this window</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .payment-method-card input:checked + div {
+        @apply border-blue-500 bg-blue-50 shadow-md;
+    }
+    
+    .payment-method-card input:checked + div .group-hover\:bg-blue-200 {
+        @apply bg-blue-200;
+    }
+    
+    .payment-method-details {
+        @apply hidden;
+    }
+    
+    .payment-method-details.active {
+        @apply block;
+    }
+    
+    .stk-status {
+        @apply hidden p-4 rounded-lg border-l-4;
+    }
+    
+    .stk-status.loading {
+        @apply block bg-yellow-50 border-yellow-400 text-yellow-800;
+    }
+    
+    .stk-status.success {
+        @apply block bg-green-50 border-green-400 text-green-800;
+    }
+    
+    .stk-status.error {
+        @apply block bg-red-50 border-red-400 text-red-800;
+    }
+    
+    #processing-overlay.visible {
+        @apply opacity-100 pointer-events-auto;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const methodRadios = document.querySelectorAll('input[name="method"]');
+    const stkPushButton = document.getElementById('stk-push-button');
+    const mpesaPhone = document.getElementById('mpesa-phone');
+    const stkPushStatus = document.getElementById('stk-push-status');
+    
+    // Modern UI elements
+    const classicPayment = document.getElementById('classic-payment');
+    const modernMpesaExperience = document.getElementById('modern-mpesa-experience');
+    const modernPhoneInput = document.getElementById('modern-phone-number');
+    const modernConfirmBtn = document.getElementById('modern-confirm-payment-btn');
+    const modernCancelBtn = document.getElementById('modern-cancel-payment-btn');
+    const modernDisplayPhone = document.getElementById('modern-display-phone');
+    const modernCountdown = document.getElementById('modern-countdown');
+    const processingOverlay = document.getElementById('processing-overlay');
+    const processingText = document.getElementById('processing-text');
+    
+    // Step elements
+    const step1Content = document.getElementById('modern-step-1-content');
+    const step2Content = document.getElementById('modern-step-2-content');
+    const step3Content = document.getElementById('modern-step-3-content');
+    const progressBar = document.getElementById('progress-bar');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+    
+    // Get CSRF token
+    function getCsrfToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+    
+    // Show/hide payment method details
+    function showPaymentDetails(method) {
+        // Hide all details
+        document.querySelectorAll('.payment-method-details').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        // Show selected method details
+        const detailsSection = document.getElementById(`${method}-details`);
+        if (detailsSection) {
+            detailsSection.classList.add('active');
+        }
+        
+        // Show modern M-Pesa experience for M-Pesa payments
+        if (method === 'mpesa') {
+            classicPayment.classList.add('hidden');
+            modernMpesaExperience.classList.remove('hidden');
+            updateStepIndicators(0);
+        } else {
+            classicPayment.classList.remove('hidden');
+            modernMpesaExperience.classList.add('hidden');
+        }
+    }
+    
+    // Update step indicators
+    function updateStepIndicators(activeStep) {
+        const steps = [step1, step2, step3];
+        const contents = [step1Content, step2Content, step3Content];
+        
+        // Update progress bar
+        if (activeStep >= 1) {
+            progressBar.style.width = '50%';
+        }
+        if (activeStep >= 2) {
+            progressBar.style.width = '100%';
+        }
+        if (activeStep === 0) {
+            progressBar.style.width = '0%';
+        }
+        
+        // Update step indicators
+        steps.forEach((step, index) => {
+            const circle = step.querySelector('div');
+            const label = step.querySelector('span');
+            
+            if (index < activeStep) {
+                // Completed
+                circle.innerHTML = '<i class="fas fa-check"></i>';
+                circle.className = 'w-10 h-10 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center text-white font-medium text-sm';
+                label.className = 'text-xs font-medium text-green-600 mt-2';
+            } else if (index === activeStep) {
+                // Active
+                circle.innerHTML = (index + 1).toString();
+                circle.className = 'w-10 h-10 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center text-white font-medium text-sm';
+                label.className = 'text-xs font-medium text-green-600 mt-2';
+            } else {
+                // Future
+                circle.innerHTML = (index + 1).toString();
+                circle.className = 'w-10 h-10 rounded-full border-2 border-slate-300 bg-white flex items-center justify-center text-slate-400 font-medium text-sm';
+                label.className = 'text-xs font-medium text-slate-400 mt-2';
+            }
+        });
+        
+        // Update content visibility
+        contents.forEach((content, index) => {
+            if (index === activeStep) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        });
+    }
+    
+    // Initiate STK Push
+    function initiateSTKPush(phoneNumber, isModernUI = false) {
+        if (isModernUI) {
+            processingText.textContent = 'Initiating payment...';
+            processingOverlay.classList.add('visible');
+        } else {
+            stkPushStatus.textContent = 'Sending payment request to your phone...';
+            stkPushStatus.className = 'stk-status loading';
+            stkPushButton.disabled = true;
+        }
+        
+        // Format phone number
+        if (!phoneNumber.startsWith('254')) {
+            if (phoneNumber.startsWith('0')) {
+                phoneNumber = '254' + phoneNumber.substring(1);
+            } else if (/^[7-9]\d+$/.test(phoneNumber)) {
+                phoneNumber = '254' + phoneNumber;
+            }
+        }
+        
+        const applicationId = '{{ application.id }}';
+        const url = `/payment/mpesa-stk-push/${applicationId}/`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({
+                phone_number: phoneNumber,
+                amount: '{{ payment.amount }}',
+                application_id: applicationId,
+                reference: '{{ application.reference_number }}'
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                if (isModernUI) {
+                    processingOverlay.classList.remove('visible');
+                    updateStepIndicators(1);
+                    modernDisplayPhone.textContent = phoneNumber;
+                    startPaymentStatusPolling(data.transaction_id);
+                } else {
+                    stkPushStatus.textContent = 'Payment request sent! Check your phone to complete the payment.';
+                    stkPushStatus.className = 'stk-status success';
+                    
+                    // Auto-fill fields
+                    const mpesaCodeField = document.querySelector('input[name="mpesa_details-mpesa_code"]');
+                    if (mpesaCodeField) {
+                        mpesaCodeField.value = data.transaction_id || '';
+                    }
+                    
+                    const phoneNumberField = document.querySelector('input[name="mpesa_details-phone_number"]');
+                    if (phoneNumberField) {
+                        phoneNumberField.value = phoneNumber;
+                    }
+                }
+            } else {
+                const errorMessage = data.message || 'Failed to send payment request. Please try again.';
+                
+                if (isModernUI) {
+                    processingOverlay.classList.remove('visible');
+                    alert(errorMessage);
+                } else {
+                    stkPushStatus.textContent = errorMessage;
+                    stkPushStatus.className = 'stk-status error';
+                }
+            }
+        })
+        .catch(error => {
+            const errorMessage = 'An error occurred. Please try again.';
+            
+            if (isModernUI) {
+                processingOverlay.classList.remove('visible');
+                alert(errorMessage);
+            } else {
+                stkPushStatus.textContent = errorMessage;
+                stkPushStatus.className = 'stk-status error';
+                console.error('STK push error:', error);
+            }
+        })
+        .finally(() => {
+            if (!isModernUI) {
+                stkPushButton.disabled = false;
+            }
+        });
+    }
+    
+    // Poll for payment status
+    function startPaymentStatusPolling(transactionId) {
+        let pollCount = 0;
+        const maxPolls = 20;
+        const pollInterval = setInterval(() => {
+            pollCount++;
+            
+            fetch(`/payment/check-status/${transactionId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCsrfToken()
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.status === 'completed') {
+                        clearInterval(pollInterval);
+                        updateStepIndicators(2);
+                        
+                        // Countdown redirect
+                        let countdown = 3;
+                        modernCountdown.textContent = `${countdown} seconds...`;
+                        
+                        const countdownInterval = setInterval(() => {
+                            countdown--;
+                            modernCountdown.textContent = `${countdown} seconds...`;
+                            
+                            if (countdown <= 0) {
+                                clearInterval(countdownInterval);
+                                window.location.href = '/payment/complete/';
+                            }
+                        }, 1000);
+                    } else if (data.status === 'failed' || data.status === 'cancelled') {
+                        clearInterval(pollInterval);
+                        alert('Payment failed or was cancelled. Please try again.');
+                        updateStepIndicators(0);
+                    }
+                }
+                
+                if (pollCount >= maxPolls) {
+                    clearInterval(pollInterval);
+                    alert('Payment confirmation timeout. If you completed the payment, it will be processed within 24 hours.');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking payment status:', error);
+                if (pollCount >= maxPolls) {
+                    clearInterval(pollInterval);
+                    alert('Error checking payment status. Please contact support if payment was completed.');
+                }
+            });
+        }, 5000);
+    }
+    
+    // Event listeners
+    methodRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            showPaymentDetails(this.value);
+        });
+    });
+    
+    if (stkPushButton) {
+        stkPushButton.addEventListener('click', function() {
+            const phoneNumber = mpesaPhone.value.trim();
+            
+            if (!phoneNumber) {
+                stkPushStatus.textContent = 'Please enter your phone number';
+                stkPushStatus.className = 'stk-status error';
+                return;
+            }
+            
+            if (!/^[7-9][0-9]{8}$/.test(phoneNumber)) {
+                stkPushStatus.textContent = 'Please enter a valid phone number (e.g., 722123456)';
+                stkPushStatus.className = 'stk-status error';
+                return;
+            }
+            
+            const fullPhoneNumber = '254' + phoneNumber;
+            initiateSTKPush(fullPhoneNumber, false);
+        });
+    }
+    
+    if (modernConfirmBtn) {
+        modernConfirmBtn.addEventListener('click', function() {
+            const phoneNumber = modernPhoneInput.value.trim();
+            
+            if (!phoneNumber) {
+                alert('Please enter your phone number');
+                return;
+            }
+            
+            let formattedPhone = phoneNumber;
+            if (phoneNumber.startsWith('0')) {
+                formattedPhone = '254' + phoneNumber.substring(1);
+            } else if (!phoneNumber.startsWith('254')) {
+                formattedPhone = '254' + phoneNumber;
+            }
+            
+            if (!/^254[7-9][0-9]{8}$/.test(formattedPhone)) {
+                alert('Please enter a valid phone number (e.g., 0722123456 or 722123456)');
+                return;
+            }
+            
+            initiateSTKPush(formattedPhone, true);
+        });
+    }
+    
+    if (modernCancelBtn) {
+        modernCancelBtn.addEventListener('click', function() {
+            updateStepIndicators(0);
+        });
+    }
+    
+    // Initialize
+    const selectedMethod = document.querySelector('input[name="method"]:checked');
+    if (selectedMethod) {
+        showPaymentDetails(selectedMethod.value);
+    }
+});
+</script>
+{% endblock %}

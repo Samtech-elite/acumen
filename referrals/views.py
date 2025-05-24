@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from .models import ReferralCode, Referral
 from .forms import ReferralInviteForm
@@ -31,6 +32,7 @@ def referral_dashboard(request):
     }
     return render(request, 'referrals/dashboard.html', context)
 
+
 @login_required
 def invite_friend(request):
     """
@@ -43,59 +45,26 @@ def invite_friend(request):
             friend_email = form.cleaned_data['referred_email']
             referrer = request.user
 
+            # Get or create referral code before creating the referral
+            referral_code_obj, _ = ReferralCode.objects.get_or_create(user=referrer)
+            
+            # Create referral with the referral code to avoid IntegrityError
             referral, created = Referral.objects.get_or_create(
                 referrer=referrer,
                 referred_email=friend_email,
-                defaults={'status': 'invited'}
+                defaults={
+                    'status': 'invited',
+                    'referral_code': referral_code_obj  # Include the referral code
+                }
             )
+            
             if not created:
                 messages.info(request, f"You have already invited {friend_email}.")
                 return redirect('referral_dashboard')
 
-            referral_code_obj, _ = ReferralCode.objects.get_or_create(user=referrer)
             referral_link = referral_code_obj.get_referral_link()
 
-            send_mail(
-                subject="Join Acumen Ink as a Writer!",
-                message=(
-                    f"Hi! Your friend {referrer.get_full_name() or referrer.username} "
-                    f"invited you to apply as a writer on Acumen Ink.\n\n"
-                    f"Apply here: {referral_link}\n\n"
-                    "We look forward to seeing your application!"
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[friend_email],
-                fail_silently=False,
-            )
-
-            messages.success(request, f"Invitation sent to {friend_email}!")
-            return redirect('referral_dashboard')
-    else:
-        form = ReferralInviteForm(referrer=request.user)
-
-    return render(request, 'referrals/invite.html', {'form': form})
-
-
-@login_required
-def invite_friend(request):
-    if request.method == 'POST':
-        form = ReferralInviteForm(request.POST, referrer=request.user)
-        if form.is_valid():
-            friend_email = form.cleaned_data['referred_email']
-            referrer = request.user
-
-            referral, created = Referral.objects.get_or_create(
-                referrer=referrer,
-                referred_email=friend_email,
-                defaults={'status': 'invited'}
-            )
-            if not created:
-                messages.info(request, f"You have already invited {friend_email}.")
-                return redirect('referral_dashboard')
-
-            referral_code_obj, _ = ReferralCode.objects.get_or_create(user=referrer)
-            referral_link = referral_code_obj.get_referral_link()
-
+            # Use HTML email template for better appearance
             context = {
                 'referrer_name': referrer.get_full_name() or referrer.username,
                 'referral_link': referral_link,
@@ -105,6 +74,7 @@ def invite_friend(request):
             from_email = settings.DEFAULT_FROM_EMAIL
             to = [friend_email]
 
+            # Create both text and HTML versions of the email
             text_content = render_to_string('referrals/referral_invite_email.txt', context)
             html_content = render_to_string('referrals/referral_invite_email.html', context)
 
@@ -112,8 +82,12 @@ def invite_friend(request):
             msg.attach_alternative(html_content, "text/html")
             msg.send()
 
+            # Update referral timestamp
+            referral.invited_at = timezone.now()
+            referral.save()
+
             messages.success(request, f"Invitation sent to {friend_email}!")
-            return redirect('referral_dashboard')
+            return redirect('dashboard')
     else:
         form = ReferralInviteForm(referrer=request.user)
 

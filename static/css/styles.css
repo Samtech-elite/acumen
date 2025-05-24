@@ -1,0 +1,220 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5a623;
+    --text-color: #333;
+    --background-color: #f9f9f9;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: var(--card-background);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    padding: 1rem 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    animation: slideInFromLeft 0.7s ease forwards;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 50%;
+    background-color: var(--primary-color);
+    transform: translateX(-50%);
+    transition: width 1s ease;
+}
+
+h1.animated::after {
+    width: 100px;
+}
+
+.testimonial-grid,
+.job-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card,
+.job-type-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    transition: all 0.5s ease;
+}
+
+.testimonial-card:hover .testimonial-image {
+    animation: floatImage 2s ease-in-out infinite;
+}
+
+.testimonial-card h3,
+.job-type-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-card .role {
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-card .country {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.testimonial-card .quote {
+    font-style: italic;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover .quote {
+    color: var(--primary-color);
+}
+
+.job-type-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+footer {
+    background-color: var(--card-background);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    box-shadow: 0 -2px 4px var(--shadow-color);
+}
+
+/* Animation styles */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes floatImage {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* Staggered animation delays */
+.testimonial-grid .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+.testimonial-grid .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+.testimonial-grid .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+.testimonial-grid .testimonial-card:nth-child(4) { animation-delay: 0.4s; }
+.testimonial-grid .testimonial-card:nth-child(5) { animation-delay: 0.5s; }
+.testimonial-grid .testimonial-card:nth-child(6) { animation-delay: 0.6s; }
+.testimonial-grid .testimonial-card:nth-child(7) { animation-delay: 0.7s; }
+.testimonial-grid .testimonial-card:nth-child(8) { animation-delay: 0.8s; }
+.testimonial-grid .testimonial-card:nth-child(9) { animation-delay: 0.9s; }
+/* For the rest, we'll animate them as they come into view */
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .testimonial-grid,
+    .job-type-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status Update</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .email-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .email-header {
+            background-color: {% if status == 'approved' %}#28a745{% elif status == 'rejected' %}#dc3545{% else %}#1a73e8{% endif %};
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .email-body {
+            padding: 30px;
+            background-color: white;
+        }
+        .email-footer {
+            background-color: #f5f5f5;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .highlight {
+            background-color: #f0f7ff;
+            border-left: 4px solid #1a73e8;
+            padding: 10px 15px;
+            margin: 20px 0;
+        }
+        @media only screen and (max-width: 480px) {
+            .email-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>
+                {% if status == 'approved' %}
+                    Your Application Has Been Approved!
+                {% elif status == 'rejected' %}
+                    Update on Your Application
+                {% else %}
+                    Application Status Update
+                {% endif %}
+            </h1>
+        </div>
+        
+        <div class="email-body">
+            <p>Hello {{ user.first_name|default:user.username }},</p>
+            
+            {% if status == 'approved' %}
+                <p>We're pleased to inform you that your application to become a writer at Acumen Ink has been <strong>approved</strong>!</p>
+                
+                <div class="highlight">
+                    <p>Congratulations! We were impressed with your writing samples and believe you'll be a great addition to our team.</p>
+                </div>
+                
+                <h2>Next Steps:</h2>
+                <ol>
+                    <li>Complete your payment to finalize your registration</li>
+                    <li>Set up your writer profile</li>
+                    <li>Start browsing available writing assignments</li>
+                </ol>
+                
+                <p>To complete your registration, please make the one-time registration payment using the link below:</p>
+                
+                <center>
+                    <a href="{{ payment_url }}" class="btn">Complete Registration</a>
+                </center>
+                
+                <p>Or copy and paste this link into your browser:</p>
+                <p><a href="{{ payment_url }}">{{ payment_url }}</a></p>
+                
+                <p>We're excited to have you join our community of talented writers!</p>
+            
+            {% elif status == 'rejected' %}
+                <p>Thank you for your interest in becoming a writer at Acumen Ink.</p>
+                
+                <p>After careful review of your application, we regret to inform you that we are unable to approve your application at this time.</p>
+                
+                {% if reason %}
+                <div class="highlight">
+                    <p><strong>Reason:</strong> {{ reason }}</p>
+                </div>
+                {% endif %}
+                
+                <p>We encourage you to:</p>
+                <ul>
+                    <li>Continue developing your writing skills</li>
+                    <li>Build a portfolio of writing samples</li>
+                    <li>Consider reapplying in 3-6 months</li>
+                </ul>
+                
+                <p>We appreciate your interest in Acumen Ink and wish you success in your writing career.</p>
+            
+            {% else %}
+                <p>Your application status has been updated to: <strong>{{ status }}</strong></p>
+                <p>We'll keep you informed as your application progresses through our review process.</p>
+            {% endif %}
+            
+            <p>Best regards,<br>The Acumen Ink Team</p>
+        </div>
+        
+        <div class="email-footer">
+            <p>© 2025 Acumen Ink. All rights reserved.</p>
+            <p>If you have any questions, please contact <a href="mailto:support@acumenink.com">support@acumenink.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

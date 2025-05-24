@@ -172,6 +172,7 @@
                 </div>
 
                 <!-- Referral Card -->
+                 {% if user.referral_code %}
                 <div class="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in-up" style="animation-delay: 0.2s;">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
                         <h2 class="text-lg font-medium text-gray-900 flex items-center">
@@ -275,26 +276,11 @@
                                 </a>
                             </div>
                         </div>
-                        {% else %}
-                        <div class="text-center py-8">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                            </svg>
-                            <h3 class="mt-2 text-sm font-medium text-gray-900">No referral link yet</h3>
-                            <p class="mt-1 text-sm text-gray-500">You don't have a referral link yet.</p>
-                            <div class="mt-6">
-                                <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                    Generate Referral Link
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
+                       {% endif %}
                     </div>
+                    
                 </div>
-                
+                 {% endif %}
                 <!-- Upcoming Assignments Card -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in-up" style="animation-delay: 0.3s;">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
